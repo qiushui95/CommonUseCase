@@ -31,8 +31,9 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CommonUseCase"
 
-include(":app")
+include(":launcher")
 
 
 include(":dloader")
 include(":network")
+include(":oss_upload")
