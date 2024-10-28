@@ -1,0 +1,583 @@
+[versions]
+#https://github.com/google/accompanist
+accompanist = "0.36.0"
+
+#https://developer.android.com/jetpack/androidx/releases/activity
+activity = "1.9.3"
+
+#http://Nothing
+agp = "8.7.1"
+
+#https://opendocs.alipay.com/open/074rk8?pathHash=bdfba391&ref=api
+alipay = "15.8.17"
+
+#https://git.yingxiong.com/app/analyticssdk
+analytics = "1.0.2"
+
+#https://github.com/mannodermaus/android-junit5
+android-junit5 = "1.11.2.0"
+
+#https://developer.android.com/jetpack/androidx/releases/test
+##https://mvnrepository.com/artifact/androidx.test.uiautomator/uiautomator
+androidtest = "1.6.1"
+androidtest-espresso = "3.6.1"
+androidtest-junit-ext = "1.2.1"
+androidtest-uiautomator = "2.3.0"
+
+#https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README-CN.md
+androidutils = "1.31.1"
+
+#https://developer.android.com/jetpack/androidx/releases/annotation
+annotation = "1.9.0"
+
+#https://developer.android.com/jetpack/androidx/releases/appcompat
+appcompat = "1.7.0"
+
+#https://github.com/dokar3/sheets
+bottomsheet = "0.5.7"
+
+#https://bugly.qq.com/docs/release-notes/release-android-bugly/?v=1.0.0
+bugly = "4.1.9.3"
+
+#https://github.com/PatilShreyas/Capturable
+capturable = "3.0.0"
+
+#https://github.com/ChuckerTeam/chucker
+chucker = "4.0.0"
+
+#https://github.com/qiushui95/CollapsingScaffold
+collapsing-scaffold = "1.0.6"
+
+#https://developer.android.com/jetpack/androidx/releases/collection
+collection = "1.4.4"
+
+#https://developer.android.com/jetpack/compose/bom/bom-mapping
+compose-core = "1.7.4"
+compose-material3 = "1.3.0"
+
+#https://developer.android.com/jetpack/androidx/releases/constraintlayout
+constraint-compose = "1.0.1"
+constraint-layout = "2.1.4"
+
+#https://developer.android.com/jetpack/androidx/releases/core
+corektx = "1.13.1"
+
+#https://developer.android.com/jetpack/androidx/releases/core
+coresplash = "1.0.1"
+
+#https://github.com/Kotlin/kotlinx.coroutines
+coroutines = "1.9.0"
+
+#https://github.com/Tencent/VasDolly
+dolly = "3.0.6"
+
+#https://github.com/huaweicloud/huaweicloud-sdk-java-obs
+drive-obs = "3.24.9"
+
+#https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/changelog.txt
+drive-oss = "2.9.19"
+
+#https://developer.android.com/jetpack/androidx/releases/exifinterface
+exif = "1.3.7"
+
+#https://github.com/alibaba/fastjson2
+fastjson = "2.0.53"
+
+#https://github.com/ReactiveCircus/FlowBinding
+flowBinding = "1.2.0"
+
+#https://github.com/respawn-app/FlowMVI
+flowmvi = "3.0.0"
+
+#https://developer.android.com/jetpack/androidx/releases/fragment
+fragment = "1.8.4"
+
+#https://github.com/bumptech/glide
+glide = "4.16.0"
+
+#https://github.com/autonomousapps/dependency-analysis-gradle-plugin
+gradleAnalysis = "2.2.0"
+
+#https://github.com/chrisbanes/haze
+#动态高斯模糊
+haze = "0.7.0"
+
+#https://github.com/Kotlin/kotlinx.collections.immutable
+immutablecollections = "0.3.8"
+
+#https://github.com/qiushui95/AndroidInitializer
+initializer = "1.0.17"
+
+#https://github.com/JodaOrg/joda-time
+jodatime = "2.13.0"
+
+#https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+junit5 = "5.11.2"
+
+#https://github.com/InsertKoinIO/koin
+koin = "4.0.0"
+
+#https://github.com/JetBrains/kotlin
+kotlin = "2.0.21"
+
+#https://github.com/google/ksp
+ksp = "2.0.21-1.0.25"
+
+#https://github.com/pinterest/ktlint
+ktlint = "1.3.1"
+
+#https://github.com/skydoves/landscapist
+landscapist = "2.4.1"
+
+#https://square.github.io/leakcanary/getting_started/
+leakcanary = "2.14"
+
+#https://developer.android.com/jetpack/androidx/releases/lifecycle
+lifecycle = "2.8.6"
+
+#https://github.com/airbnb/lottie-android
+lottie = "6.5.2"
+
+#https://github.com/material-components/material-components-android
+material = "1.12.0"
+
+#https://github.com/vanniktech/gradle-maven-publish-plugin
+maven = "0.30.0"
+
+#https://github.com/Tencent/MMKV/blob/master/README_CN.md
+mmkv = "1.3.9"
+
+#https://github.com/square/moshi
+moshi = "1.15.1"
+
+#https://github.com/lingochamp/okdownload
+ok-download = "1.0.7"
+
+#https://github.com/square/okhttp
+okhttp = "4.12.0"
+
+#https://github.com/getActivity/XXPermissions
+permission = "20.0"
+
+#https://github.com/CarGuo/GSYVideoPlayer
+player-video = "v9.0.0-release-jitpack"
+
+#https://github.com/jenly1314/UltraSwipeRefresh
+refresh = "1.3.0"
+
+#https://github.com/square/retrofit
+retrofit = "2.11.0"
+
+#https://github.com/MohamedRejeb/Compose-Rich-Editor
+richtext = "0.2.0"
+
+#https://developer.android.com/jetpack/androidx/releases/room
+room = "2.6.1"
+
+#https://github.com/davemorrissey/subsampling-scale-image-view
+sampling_image = "3.10.0"
+
+#https://github.com/LuckSiege/PictureSelector
+selector = "v3.11.3"
+
+#https://github.com/GIGAMOLE/ComposeShadowsPlus
+shadows = "1.0.4"
+
+#https://github.com/SmartToolFactory/Compose-Colorful-Sliders
+slider = "1.2.2"
+
+#https://github.com/diffplug/spotless
+spotless = "6.25.0"
+
+#https://github.com/facebook/stetho
+stetho = "1.6.0"
+
+#https://github.com/qiushui95/ComoposeSwipeRow
+swipe-row = "1.0.1"
+
+#https://github.com/qiushui95/iOSComoposeSwitch
+switch = "1.0.1"
+
+#https://github.com/saket/telephoto
+telephoto = "0.13.0"
+
+#https://github.com/wasabeef/transformers
+transformers = "1.0.6"
+
+#https://github.com/azhon/AppUpdate
+update = "4.3.5"
+
+#https://github.com/adrielcafe/voyager
+#导航框架
+voyager = "1.0.0"
+
+#https://github.com/Justson/AgentWeb
+webview_agent = "v5.1.1-androidx"
+
+#https://github.com/KevinnZou/compose-webview
+webview_compose = "0.33.6"
+
+#https://github.com/KangYee/tbscompose
+webview_x5_compose = "1.0.1"
+
+#https://x5.tencent.com/docs/access.html
+webview_x5_core = "44286"
+
+#https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Access_Guide/Android.html#jump2
+wechat = "6.8.30"
+
+#https://developer.android.com/jetpack/androidx/releases/work
+work = "2.9.1"
+
+#https://github.com/iqiyi/xCrash/blob/master/README.zh-CN.md
+xcrash = "3.1.0"
+
+#https://github.com/li-xiaojun/XPopup
+xpopup = "2.10.0"
+
+#https://github.com/panpf/zoomimage
+zoomimage = "1.0.2"
+
+
+
+
+
+[plugins]
+android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "android-junit5" }
+application = { id = "com.android.application", version.ref = "agp" }
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+gradleAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "gradleAnalysis" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+library = { id = "com.android.library", version.ref = "agp" }
+maven = { id = "com.vanniktech.maven.publish", version.ref = "maven" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+
+
+
+
+
+[libraries]
+#https://github.com/google/accompanist
+accompanist-drawablepainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
+accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
+accompanist-placeholder = { module = "com.google.accompanist:accompanist-placeholder", version.ref = "accompanist" }
+accompanist-uicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanist" }
+
+#https://developer.android.com/jetpack/androidx/releases/activity
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
+activity-core = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+
+#https://opendocs.alipay.com/open/074rk8?pathHash=bdfba391&ref=api
+alipay = { module = "com.alipay.sdk:alipaysdk-android", version.ref = "alipay" }
+
+#https://git.yingxiong.com/app/analyticssdk
+analytics = { module = "com.hero.analytics.android.sdk:core", version.ref = "analytics" }
+
+#https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README-CN.md
+androidUtils = { module = "com.blankj:utilcodex", version.ref = "androidutils" }
+
+#https://developer.android.com/jetpack/androidx/releases/test
+androidtest-core = { module = "androidx.test:core-ktx", version.ref = "androidtest" }
+androidtest-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidtest-espresso" }
+androidtest-rules = { module = "androidx.test:rules", version.ref = "androidtest" }
+androidtest-runner = { module = "androidx.test:runner", version.ref = "androidtest" }
+
+#https://mvnrepository.com/artifact/androidx.test.ext/junit-ktx
+androidtest-junit-ext = { module = "androidx.test.ext:junit-ktx", version.ref = "androidtest-junit-ext" }
+
+#https://developer.android.com/jetpack/androidx/releases/test-uiautomator
+androidtest-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "androidtest-uiautomator" }
+
+#https://developer.android.com/jetpack/androidx/releases/annotation
+annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
+
+#https://developer.android.com/jetpack/androidx/releases/appcompat
+appcompat-core = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+appcompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "appcompat" }
+
+#https://github.com/dokar3/sheets
+bottomsheet-m2 = { module = "io.github.dokar3:sheets", version.ref = "bottomsheet" }
+bottomsheet-m3 = { module = "io.github.dokar3:sheets-m3", version.ref = "bottomsheet" }
+
+#https://bugly.qq.com/docs/user-guide/instruction-manual-android/?v=1.0.0
+bugly = { module = "com.tencent.bugly:crashreport", version.ref = "bugly" }
+
+#https://github.com/PatilShreyas/Capturable
+capturable = { module = "dev.shreyaspatil:capturable", version.ref = "capturable" }
+
+#https://github.com/ChuckerTeam/chucker
+chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+
+#https://github.com/qiushui95/CollapsingScaffold
+collapsing-scaffold = { module = "com.github.qiushui95:CollapsingScaffold", version.ref = "collapsing-scaffold" }
+
+#https://developer.android.com/jetpack/androidx/releases/collection
+collection = { module = "androidx.collection:collection", version.ref = "collection" }
+
+#https://developer.android.com/jetpack/androidx/releases/compose
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose-core" }
+compose-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "compose-core" }
+compose-material = { module = "androidx.compose.material:material", version.ref = "compose-core" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose-core" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose-core" }
+compose-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose-core" }
+compose-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose-core" }
+compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-core" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-core" }
+
+#https://developer.android.com/jetpack/androidx/releases/constraintlayout
+constraint-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraint-compose" }
+constraint-layout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraint-layout" }
+
+#https://developer.android.com/jetpack/androidx/releases/core
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
+core-splash = { module = "androidx.core:core-splashscreen", version.ref = "coresplash" }
+
+#https://github.com/Kotlin/kotlinx.coroutines
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+#https://github.com/Tencent/VasDolly
+dolly = { module = "com.tencent.vasdolly:helper", version.ref = "dolly" }
+
+#https://github.com/huaweicloud/huaweicloud-sdk-java-obs
+drive-obs = { module = "com.huaweicloud:esdk-obs-android", version.ref = "drive-obs" }
+
+#https://help.aliyun.com/document_detail/32043.html?spm=a2c4g.32041.0.0.5c6b3c6bC8T5kQ
+drive-oss = { module = "com.aliyun.dpa:oss-android-sdk", version.ref = "drive-oss" }
+
+#https://developer.android.com/jetpack/androidx/releases/exifinterface
+exif = { module = "androidx.exifinterface:exifinterface", version.ref = "exif" }
+
+#https://github.com/alibaba/fastjson2
+fastjson = { module = "com.alibaba.fastjson2:fastjson2", version.ref = "fastjson" }
+
+#https://github.com/ReactiveCircus/FlowBinding
+flow-binding-activity = { module = "io.github.reactivecircus.flowbinding:flowbinding-activity", version.ref = "flowBinding" }
+flow-binding-android = { module = "io.github.reactivecircus.flowbinding:flowbinding-android", version.ref = "flowBinding" }
+flow-binding-appcompat = { module = "io.github.reactivecircus.flowbinding:flowbinding-appcompat", version.ref = "flowBinding" }
+flow-binding-core = { module = "io.github.reactivecircus.flowbinding:flowbinding-core", version.ref = "flowBinding" }
+flow-binding-drawerlayout = { module = "io.github.reactivecircus.flowbinding:flowbinding-drawerlayout", version.ref = "flowBinding" }
+flow-binding-lifecycle = { module = "io.github.reactivecircus.flowbinding:flowbinding-lifecycle", version.ref = "flowBinding" }
+flow-binding-material = { module = "io.github.reactivecircus.flowbinding:flowbinding-material", version.ref = "flowBinding" }
+flow-binding-navigation = { module = "io.github.reactivecircus.flowbinding:flowbinding-navigation", version.ref = "flowBinding" }
+flow-binding-preference = { module = "io.github.reactivecircus.flowbinding:flowbinding-preference", version.ref = "flowBinding" }
+flow-binding-recyclerview = { module = "io.github.reactivecircus.flowbinding:flowbinding-recyclerview", version.ref = "flowBinding" }
+flow-binding-swiperefreshlayout = { module = "io.github.reactivecircus.flowbinding:flowbinding-swiperefreshlayout", version.ref = "flowBinding" }
+flow-binding-viewpager = { module = "io.github.reactivecircus.flowbinding:flowbinding-viewpager", version.ref = "flowBinding" }
+flow-binding-viewpager2 = { module = "io.github.reactivecircus.flowbinding:flowbinding-viewpager2", version.ref = "flowBinding" }
+
+#https://github.com/respawn-app/FlowMVI
+flowmvi-android = { module = "pro.respawn.flowmvi:android", version.ref = "flowmvi" }
+flowmvi-compose = { module = "pro.respawn.flowmvi:compose", version.ref = "flowmvi" }
+flowmvi-core = { module = "pro.respawn.flowmvi:core", version.ref = "flowmvi" }
+flowmvi-savedstate = { module = "pro.respawn.flowmvi:savedstate", version.ref = "flowmvi" }
+
+#https://developer.android.com/jetpack/androidx/releases/fragment
+fragment-core = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+fragment-test = { module = "androidx.fragment:fragment-testing", version.ref = "fragment" }
+
+#https://github.com/bumptech/glide
+glide-avif = { module = "com.github.bumptech.glide:avif-integration", version.ref = "glide" }
+glide-core = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
+glide-okhttp = { module = "com.github.bumptech.glide:okhttp3-integration", version.ref = "glide" }
+
+#http://Nothing
+gradlePlugin-android = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+
+#https://github.com/mannodermaus/android-junit5
+gradlePlugin-junit5 = { group = "de.mannodermaus.gradle.plugins", name = "android-junit5", version.ref = "android-junit5" }
+
+#https://github.com/JetBrains/kotlin
+gradlePlugin-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
+#https://github.com/google/ksp
+gradlePlugin-ksp = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+
+#https://github.com/vanniktech/gradle-maven-publish-plugin
+gradlePlugin-maven = { group = "com.vanniktech", name = "gradle-maven-publish-plugin", version.ref = "maven" }
+
+#https://github.com/diffplug/spotless
+gradlePlugin-spotless = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
+
+#https://github.com/chrisbanes/haze
+haze = { module = "dev.chrisbanes.haze:haze-jetpack-compose", version.ref = "haze" }
+
+#https://github.com/Kotlin/kotlinx.collections.immutable
+immutable-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm", version.ref = "immutablecollections" }
+
+#https://github.com/qiushui95/AndroidInitializer
+initializer = { module = "com.github.qiushui95:AndroidInitializer", version.ref = "initializer" }
+
+#https://github.com/JodaOrg/joda-time
+jodatime = { module = "joda-time:joda-time", version.ref = "jodatime" }
+
+#https://github.com/InsertKoinIO/koin
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-vm = { module = "io.insert-koin:koin-core-viewmodel", version.ref = "koin" }
+
+#https://github.com/JetBrains/kotlin
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+
+#https://github.com/pinterest/ktlint
+ktlint = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
+
+#https://github.com/skydoves/landscapist
+landscapist-animation = { module = "com.github.skydoves:landscapist-animation", version.ref = "landscapist" }
+landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "landscapist" }
+landscapist-palette = { module = "com.github.skydoves:landscapist-palette", version.ref = "landscapist" }
+landscapist-placeholder = { module = "com.github.skydoves:landscapist-placeholder", version.ref = "landscapist" }
+landscapist-transformation = { module = "com.github.skydoves:landscapist-transformation", version.ref = "landscapist" }
+
+#https://square.github.io/leakcanary/getting_started/
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+
+#https://developer.android.com/jetpack/androidx/releases/lifecycle
+lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+lifecycle-compose-android = { module = "androidx.lifecycle:lifecycle-runtime-compose-android", version.ref = "lifecycle" }
+lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "lifecycle" }
+lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycle" }
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycle" }
+
+#https://github.com/airbnb/lottie-android
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+lottie-view = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+
+#https://github.com/material-components/material-components-android
+material = { module = "com.google.android.material:material", version.ref = "material" }
+
+#https://github.com/Tencent/MMKV/blob/master/README_CN.md
+mmkv = { module = "com.tencent:mmkv-static", version.ref = "mmkv" }
+
+#https://github.com/square/moshi
+moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshi-ksp = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+
+#https://github.com/lingochamp/okdownload
+okdownload-core = { module = "com.liulishuo.okdownload:okdownload", version.ref = "ok-download" }
+okdownload-ktx = { module = "com.liulishuo.okdownload:ktx", version.ref = "ok-download" }
+okdownload-okhttp = { module = "com.liulishuo.okdownload:okhttp", version.ref = "ok-download" }
+okdownload-sqlite = { module = "com.liulishuo.okdownload:sqlite", version.ref = "ok-download" }
+
+#https://github.com/square/okhttp
+okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+
+#https://github.com/getActivity/XXPermissions
+permission = { module = "com.github.getActivity:XXPermissions", version.ref = "permission" }
+
+#https://github.com/CarGuo/GSYVideoPlayer
+player-video-arm64 = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64", version.ref = "player-video" }
+player-video-armv7a = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv7a", version.ref = "player-video" }
+player-video-core = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java", version.ref = "player-video" }
+player-video-exo = { module = "com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer-exo2", version.ref = "player-video" }
+
+#https://github.com/jenly1314/UltraSwipeRefresh
+refresh-classic = { module = "com.github.jenly1314.UltraSwipeRefresh:refresh-indicator-classic", version.ref = "refresh" }
+refresh-core = { module = "com.github.jenly1314.UltraSwipeRefresh:refresh", version.ref = "refresh" }
+refresh-lottie = { module = "com.github.jenly1314.UltraSwipeRefresh:refresh-indicator-lottie", version.ref = "refresh" }
+refresh-progress = { module = "com.github.jenly1314.UltraSwipeRefresh:refresh-indicator-progress", version.ref = "refresh" }
+
+#https://github.com/square/retrofit
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+retrofit-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
+
+#https://github.com/MohamedRejeb/Compose-Rich-Editor
+richtext = { module = "com.mohamedrejeb.richeditor:richeditor-compose", version.ref = "richtext" }
+
+#https://developer.android.com/jetpack/androidx/releases/room
+room-core = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-ksp = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+#https://github.com/davemorrissey/subsampling-scale-image-view
+sampling-image = { module = "com.davemorrissey.labs:subsampling-scale-image-view", version.ref = "sampling_image" }
+
+#https://github.com/LuckSiege/PictureSelector
+selector-camerax = { module = "io.github.lucksiege:camerax", version.ref = "selector" }
+selector-compress = { module = "io.github.lucksiege:compress", version.ref = "selector" }
+selector-core = { module = "io.github.lucksiege:pictureselector", version.ref = "selector" }
+selector-crop = { module = "io.github.lucksiege:ucrop", version.ref = "selector" }
+
+#https://github.com/GIGAMOLE/ComposeShadowsPlus
+shadows = { module = "com.github.GIGAMOLE:ComposeShadowsPlus", version.ref = "shadows" }
+
+#https://github.com/SmartToolFactory/Compose-Colorful-Sliders
+slider = { module = "com.github.SmartToolFactory:Compose-Colorful-Sliders", version.ref = "slider" }
+
+#https://github.com/facebook/stetho
+stetho-core = { module = "com.facebook.stetho:stetho", version.ref = "stetho" }
+stetho-okhttp = { module = "com.facebook.stetho:stetho-okhttp3", version.ref = "stetho" }
+
+#https://github.com/qiushui95/ComoposeSwipeRow
+swipe-row = { module = "com.github.qiushui95:ComoposeSwipeRow", version.ref = "swipe-row" }
+
+#https://github.com/qiushui95/iOSComoposeSwitch
+switch = { module = "com.github.qiushui95:iOSComoposeSwitch", version.ref = "switch" }
+
+#https://github.com/saket/telephoto
+telephoto-coil = { module = "me.saket.telephoto:zoomable-image-coil", version.ref = "telephoto" }
+telephoto-glide = { module = "me.saket.telephoto:zoomable-image-glide", version.ref = "telephoto" }
+telephoto-sampling = { module = "me.saket.telephoto:sub-sampling-image", version.ref = "telephoto" }
+telephoto-zoomable = { module = "me.saket.telephoto:zoomable", version.ref = "telephoto" }
+
+#https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+test-junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+test-junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+test-junit5-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5" }
+
+#https://github.com/wasabeef/transformers
+transformers-core = { module = "jp.wasabeef.transformers:core", version.ref = "transformers" }
+transformers-glide = { module = "jp.wasabeef.transformers:glide", version.ref = "transformers" }
+transformers-gpu = { module = "jp.wasabeef.transformers:glide-gpu", version.ref = "transformers" }
+
+#https://github.com/azhon/AppUpdate
+update = { module = "io.github.azhon:appupdate", version.ref = "update" }
+
+#https://github.com/adrielcafe/voyager
+voyager-bottom = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
+voyager-core = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
+voyager-model = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
+voyager-tab = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
+voyager-transition = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
+
+#https://github.com/KevinnZou/compose-webview
+webview-compose = { module = "io.github.kevinnzou:compose-webview", version.ref = "webview_compose" }
+
+#https://github.com/Justson/AgentWeb
+webview_agent = { module = "io.github.justson:agentweb-core", version.ref = "webview_agent" }
+
+#https://github.com/KangYee/tbscompose
+webview_x5_compose = { module = "io.github.kangyee:tbscompose", version.ref = "webview_x5_compose" }
+
+#https://x5.tencent.com/docs/access.html
+webview_x5_core = { module = "com.tencent.tbs:tbssdk", version.ref = "webview_x5_core" }
+
+#https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Access_Guide/Android.html#jump2
+wechat = { module = "com.tencent.mm.opensdk:wechat-sdk-android", version.ref = "wechat" }
+
+#https://developer.android.com/jetpack/androidx/releases/work
+work-core = { module = "androidx.work:work-runtime", version.ref = "work" }
+work-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
+work-process = { module = "androidx.work:work-multiprocess", version.ref = "work" }
+
+#https://github.com/iqiyi/xCrash/blob/master/README.zh-CN.md
+xcrash = { module = "com.iqiyi.xcrash:xcrash-android-lib", version.ref = "xcrash" }
+
+#https://github.com/li-xiaojun/XPopup
+xpopup = { module = "com.github.li-xiaojun:XPopup", version.ref = "xpopup" }
+
+#https://github.com/panpf/zoomimage
+zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-glide", version.ref = "zoomimage" }
