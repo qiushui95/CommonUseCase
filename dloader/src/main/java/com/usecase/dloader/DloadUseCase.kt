@@ -8,6 +8,12 @@ public interface DloadUseCase {
     }
 
     /**
+     * 记录日志
+     * @param message 日志信息
+     */
+    public fun logMessage(message: String)
+
+    /**
      * 开始同步下载
      * @param url 下载地址
      * @param dstFile 保存到的文件

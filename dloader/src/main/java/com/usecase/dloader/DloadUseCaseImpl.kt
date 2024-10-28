@@ -1,5 +1,6 @@
 package com.usecase.dloader
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import java.io.File
 private const val SPLIT_SIZE = 10L * 1024 * 1024
 private const val SPLIT_TIMEOUT_SECOND = 15
 
-public abstract class DloadUseCaseImpl : DloadUseCase {
+public class DloadUseCaseImpl : DloadUseCase {
     private data class DownInfo(
         val url: String,
         val dstFile: File,
@@ -73,8 +74,6 @@ public abstract class DloadUseCaseImpl : DloadUseCase {
             .build()
     }
 
-    protected abstract fun logMessage(message: String)
-
     private val subTaskProcessors by lazy {
         Runtime.getRuntime().availableProcessors() - 2
     }
@@ -86,6 +85,10 @@ public abstract class DloadUseCaseImpl : DloadUseCase {
     private val subTaskDispatcher by lazy {
         Dispatchers.IO.limitedParallelism(subTaskProcessors) +
             errorHandler
+    }
+
+    override fun logMessage(message: String) {
+        Log.e("DloadUseCase", message)
     }
 
     public override suspend fun startSyncDload(
