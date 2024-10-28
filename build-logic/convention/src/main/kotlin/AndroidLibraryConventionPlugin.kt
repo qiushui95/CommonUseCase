@@ -45,7 +45,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.consumerProguardFiles("consumer-rules.pro")
-                defaultConfig.targetSdk = 34
+                defaultConfig.minSdk = 29
+                defaultConfig.targetSdk = 29
 
                 kotlinOptions {
                     compilerOptions {

@@ -34,6 +34,7 @@ rootProject.name = "CommonUseCase"
 include(":launcher")
 
 
+include(":app")
 include(":dloader")
 include(":network")
 include(":oss_upload")
