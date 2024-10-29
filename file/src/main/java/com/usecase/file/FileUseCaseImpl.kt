@@ -2,10 +2,15 @@ package com.usecase.file
 
 import com.blankj.utilcode.util.EncryptUtils
 import java.io.File
+import java.util.UUID
 
 public class FileUseCaseImpl : FileUseCase {
     override fun getFileMd5(file: File): String {
         return EncryptUtils.encryptMD5File2String(file).lowercase()
+    }
+
+    override fun getRandomFileMd5(file: File): String {
+        return EncryptUtils.encryptMD5ToString(UUID.randomUUID().toString()).lowercase()
     }
 
     override fun isEmptyDir(file: File): Boolean {
