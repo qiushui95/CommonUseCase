@@ -35,6 +35,7 @@ include(":launcher")
 
 
 include(":app")
+include(":app_file")
 include(":dloader")
 include(":network")
 include(":oss_upload")
