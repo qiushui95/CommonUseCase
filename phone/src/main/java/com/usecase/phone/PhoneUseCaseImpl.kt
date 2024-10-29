@@ -7,7 +7,7 @@ public class PhoneUseCaseImpl : PhoneUseCase {
         if (RegexUtils.isIP(ip).not()) return null
 
         return ip.split('.').joinToString("", prefix = "VM") {
-            it.padEnd(3, '0')
+            it.padStart(3, '0')
         }
     }
 }
