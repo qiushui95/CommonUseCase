@@ -24,9 +24,9 @@ public interface AppUseCase {
 
     public fun getSpaceSize(pkgName: String): Long
 
-    public fun getAppSignature(pkgName: String): String
+    public fun getAppSignature(pkgName: String): String?
 
-    public fun getAppSignature(appInfo: AppUtils.AppInfo?): String
+    public fun getAppSignature(appInfo: AppUtils.AppInfo?): String?
 
     public fun getUID(pkgName: String): String?
 }

@@ -95,15 +95,15 @@ public class AppUseCaseImpl(app: Application) : AppUseCase {
         }
     }
 
-    override fun getAppSignature(pkgName: String): String {
+    override fun getAppSignature(pkgName: String): String? {
         return getAppSignature(AppUtils.getAppInfo(pkgName))
     }
 
-    override fun getAppSignature(appInfo: AppUtils.AppInfo?): String {
-        appInfo ?: return "none"
+    override fun getAppSignature(appInfo: AppUtils.AppInfo?): String? {
+        appInfo ?: return null
 
         return AppUtils.getAppSignaturesMD5(appInfo.packageName)
-            .firstOrNull()?.replace(":", "") ?: "none"
+            .firstOrNull()?.replace(":", "")
     }
 
     override fun getUID(pkgName: String): String? {
