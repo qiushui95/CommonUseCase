@@ -23,7 +23,7 @@ public interface AppFileUseCase {
 
     public fun getObbFileList(pkgName: String): List<File>
 
-    public fun checkTgzFile(file: File): Boolean
+    public fun checkTarFile(file: File): Boolean
 
     public fun chownInternalDir(pkgName: String, uid: String)
 }

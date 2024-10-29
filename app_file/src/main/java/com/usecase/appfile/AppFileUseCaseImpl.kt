@@ -37,7 +37,7 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
     }
 
     override fun getExternalDataFile(): File {
-        return File(getDstDir(), "external_data.tgz.external")
+        return File(getDstDir(), "external_data.tar.external")
     }
 
     override fun tarExternalData(pkgName: String) {
@@ -47,13 +47,13 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
 
         cmdList.add("mkdir -p ${dstFile.parentFile?.absolutePath}")
 
-        cmdList.add("cd / && tar -zcf ${dstFile.absolutePath} /sdcard/Android/data/$pkgName")
+        cmdList.add("cd / && tar -cf ${dstFile.absolutePath} /sdcard/Android/data/$pkgName")
 
         ShellUtils.execCmd(cmdList, true, true)
     }
 
     override fun getInternalDataFile(): File {
-        return File(getDstDir(), "internal_data.tgz.internal")
+        return File(getDstDir(), "internal_data.tar.internal")
     }
 
     override fun tarInternalData(pkgName: String) {
@@ -63,13 +63,13 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
 
         cmdList.add("mkdir -p ${dstFile.parentFile?.absolutePath}")
 
-        cmdList.add("cd / && tar -zcf ${dstFile.absolutePath} /data/data/$pkgName")
+        cmdList.add("cd / && tar -cf ${dstFile.absolutePath} /data/data/$pkgName")
 
-        ShellUtils.execCmd(cmdList, true, true)
+        ShellUtils.execCmd(cmdList, true, false)
     }
 
     override fun getCustomDirFile(): File {
-        return File(getDstDir(), "custom_dir.tgz.custom")
+        return File(getDstDir(), "custom_dir.tar.custom")
     }
 
     override fun tarCustomDir(dirList: List<String>) {
@@ -84,7 +84,7 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
         val tarCmdList = mutableListOf<String>()
 
         tarCmdList.add("tar")
-        tarCmdList.add("-zcf")
+        tarCmdList.add("-cf")
         tarCmdList.add(dstFile.absolutePath)
 
         dirList.forEach { tarCmdList.add(it) }
@@ -93,7 +93,7 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
 
         cmdList.add("cd / && $tarCmd")
 
-        ShellUtils.execCmd(cmdList, true, true)
+        ShellUtils.execCmd(cmdList, true, false)
     }
 
     override fun getApkFileList(pkgName: String): List<File> {
@@ -120,7 +120,7 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
         return obbDir.listFiles()?.filter { it.exists() && it.isFile } ?: emptyList()
     }
 
-    override fun checkTgzFile(file: File): Boolean {
+    override fun checkTarFile(file: File): Boolean {
         return when {
             file.exists().not() -> false
             file.isFile.not() -> false
