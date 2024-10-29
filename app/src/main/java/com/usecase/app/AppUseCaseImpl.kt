@@ -115,6 +115,8 @@ public class AppUseCaseImpl(app: Application) : AppUseCase {
             getApplicationInfo(pkgName, 0).uid
         }.getOrNull() ?: return null
 
+        if (uid==1000) return "system"
+
         return "u0_a${uid - 10000}"
     }
 }
