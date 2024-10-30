@@ -1,5 +1,6 @@
 package com.usecase.app
 
+import android.app.Application
 import android.content.pm.PackageInfo
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ShellUtils
@@ -11,10 +12,10 @@ public interface AppUseCase {
     public fun getInstallShell(
         pkgName: String,
         apkList: List<File>,
-        obbList: List<ObbFileInfo>
+        obbList: List<ObbFileInfo>,
     ): List<String>
 
-    public fun isSystemApp(pkgName: String): Boolean
+    public fun isSystemApp(app: Application, pkgName: String): Boolean
 
     public fun isSystemApp(pkgInfo: PackageInfo): Boolean
 
@@ -26,7 +27,7 @@ public interface AppUseCase {
 
     public fun getAppInfo(pkgName: String): AppUtils.AppInfo?
 
-    public fun getSpaceSize(pkgName: String): Long
+    public fun getSpaceSize(app: Application, pkgName: String): Long
 
     public fun getAppSignature(pkgName: String): String?
 

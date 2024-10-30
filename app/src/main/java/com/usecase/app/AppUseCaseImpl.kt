@@ -12,10 +12,18 @@ import com.blankj.utilcode.util.ShellUtils
 import com.blankj.utilcode.util.Utils
 import java.io.File
 
-public class AppUseCaseImpl(app: Application) : AppUseCase {
-    private val pkgManager by lazy { app.packageManager }
-    private val statsManager by lazy { app.getSystemService(StorageStatsManager::class.java) }
-    private val storageManager by lazy { app.getSystemService(StorageManager::class.java) }
+public class AppUseCaseImpl : AppUseCase {
+    private fun getPkgManager(app: Application): PackageManager {
+        return app.packageManager
+    }
+
+    private fun getStatsManager(app: Application): StorageStatsManager {
+        return app.getSystemService(StorageStatsManager::class.java)
+    }
+
+    private fun getStorageManager(app: Application): StorageManager {
+        return app.getSystemService(StorageManager::class.java)
+    }
 
     override fun runShell(shellList: List<String>, isRoot: Boolean): ShellUtils.CommandResult? {
         return ShellUtils.execCmd(shellList, isRoot, true)
@@ -24,7 +32,7 @@ public class AppUseCaseImpl(app: Application) : AppUseCase {
     override fun getInstallShell(
         pkgName: String,
         apkList: List<File>,
-        obbList: List<ObbFileInfo>
+        obbList: List<ObbFileInfo>,
     ): List<String> {
         val cmdList = mutableListOf<String>()
 
@@ -47,8 +55,8 @@ public class AppUseCaseImpl(app: Application) : AppUseCase {
         return cmdList
     }
 
-    override fun isSystemApp(pkgName: String): Boolean {
-        return isSystemApp(pkgManager.getPackageInfo(pkgName, 0))
+    override fun isSystemApp(app: Application, pkgName: String): Boolean {
+        return isSystemApp(getPkgManager(app).getPackageInfo(pkgName, 0))
     }
 
     override fun isSystemApp(pkgInfo: PackageInfo): Boolean {
@@ -92,8 +100,12 @@ public class AppUseCaseImpl(app: Application) : AppUseCase {
         return AppUtils.getAppInfo(pkgName)
     }
 
-    override fun getSpaceSize(pkgName: String): Long {
+    override fun getSpaceSize(app: Application, pkgName: String): Long {
         val dir = File(Environment.getDataDirectory(), pkgName)
+
+        val pkgManager = getPkgManager(app)
+        val statsManager = getStatsManager(app)
+        val storageManager = getStorageManager(app)
 
         val uid = pkgManager.getApplicationInfo(pkgName, PackageManager.GET_META_DATA).uid
         val uuid = storageManager.getUuidForPath(dir)
