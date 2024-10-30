@@ -6,19 +6,19 @@ import java.io.File
 public interface AppFileUseCase {
     public fun getIconFile(): File
 
-    public fun copyIcon(app: Application, pkgName: String)
+    public fun copyIcon(app: Application, pkgName: String, dstFile: File = getIconFile())
 
     public fun getExternalDataFile(): File
 
-    public fun tarExternalData(pkgName: String)
+    public fun tarExternalData(pkgName: String, dstFile: File = getExternalDataFile())
 
     public fun getInternalDataFile(): File
 
-    public fun tarInternalData(pkgName: String)
+    public fun tarInternalData(pkgName: String, dstFile: File = getInternalDataFile())
 
     public fun getCustomDirFile(): File
 
-    public fun tarCustomDir(dirList: List<String>)
+    public fun tarCustomDir(dirList: List<String>, dstFile: File = getCustomDirFile())
 
     public fun getApkFileList(app: Application, pkgName: String): List<File>
 

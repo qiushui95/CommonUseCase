@@ -20,20 +20,18 @@ public abstract class AppFileUseCaseImpl : AppFileUseCase {
         return File(dstDir, "icon.png")
     }
 
-    override fun copyIcon(app: Application, pkgName: String) {
+    override fun copyIcon(app: Application, pkgName: String, dstFile: File) {
         val applicationInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
-
-        val iconFile = getIconFile()
 
         val bitmap = applicationInfo.loadUnbadgedIcon(app.packageManager)
             ?.toBitmapOrNull() ?: return
 
         try {
-            iconFile.parentFile?.mkdirs()
+            dstFile.parentFile?.mkdirs()
 
-            iconFile.delete()
-            iconFile.createNewFile()
-            iconFile.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+            dstFile.delete()
+            dstFile.createNewFile()
+            dstFile.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
         } finally {
             bitmap.recycle()
         }
@@ -43,10 +41,8 @@ public abstract class AppFileUseCaseImpl : AppFileUseCase {
         return File(dstDir, "external_data.tar.external")
     }
 
-    override fun tarExternalData(pkgName: String) {
+    override fun tarExternalData(pkgName: String, dstFile: File) {
         val cmdList = mutableListOf<String>()
-
-        val dstFile = getExternalDataFile()
 
         cmdList.add("mkdir -p ${dstFile.parentFile?.absolutePath}")
 
@@ -59,10 +55,8 @@ public abstract class AppFileUseCaseImpl : AppFileUseCase {
         return File(dstDir, "internal_data.tar.internal")
     }
 
-    override fun tarInternalData(pkgName: String) {
+    override fun tarInternalData(pkgName: String, dstFile: File) {
         val cmdList = mutableListOf<String>()
-
-        val dstFile = getInternalDataFile()
 
         cmdList.add("mkdir -p ${dstFile.parentFile?.absolutePath}")
 
@@ -75,10 +69,8 @@ public abstract class AppFileUseCaseImpl : AppFileUseCase {
         return File(dstDir, "custom_dir.tar.custom")
     }
 
-    override fun tarCustomDir(dirList: List<String>) {
+    override fun tarCustomDir(dirList: List<String>, dstFile: File) {
         if (dirList.isEmpty()) return
-
-        val dstFile = getCustomDirFile()
 
         val cmdList = mutableListOf<String>()
 
