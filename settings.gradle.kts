@@ -1,6 +1,3 @@
-import java.net.URI
-
-
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -19,14 +16,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven(url = "https://jitpack.io")
-        maven {
-            name = "Hero"
-            url = URI.create(System.getenv("HERO_NEXUS_URL"))
-            credentials {
-                username = System.getenv("HERO_NEXUS_USERNAME")
-                password = System.getenv("HERO_NEXUS_PASSWORD")
-            }
-        }
     }
 }
 rootProject.name = "CommonUseCase"
@@ -41,3 +30,4 @@ include(":network")
 include(":oss_upload")
 include(":file")
 include(":phone")
+include(":service")
