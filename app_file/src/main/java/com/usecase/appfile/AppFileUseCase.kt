@@ -1,11 +1,12 @@
 package com.usecase.appfile
 
+import android.app.Application
 import java.io.File
 
 public interface AppFileUseCase {
     public fun getIconFile(): File
 
-    public fun copyIcon(pkgName: String)
+    public fun copyIcon(app: Application, pkgName: String)
 
     public fun getExternalDataFile(): File
 
@@ -19,7 +20,7 @@ public interface AppFileUseCase {
 
     public fun tarCustomDir(dirList: List<String>)
 
-    public fun getApkFileList(pkgName: String): List<File>
+    public fun getApkFileList(app: Application, pkgName: String): List<File>
 
     public fun getObbFileList(pkgName: String): List<File>
 

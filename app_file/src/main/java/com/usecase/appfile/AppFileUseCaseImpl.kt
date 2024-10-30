@@ -1,13 +1,16 @@
 package com.usecase.appfile
 
 import android.app.Application
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import androidx.core.graphics.drawable.toBitmapOrNull
 import com.blankj.utilcode.util.ShellUtils
 import java.io.File
 
-public abstract class AppFileUseCaseImpl(private val app: Application) : AppFileUseCase {
-    private val pkgManager by lazy { app.packageManager }
+public abstract class AppFileUseCaseImpl : AppFileUseCase {
+    private fun getPkgManager(app: Application): PackageManager {
+        return app.packageManager
+    }
 
     protected abstract val dstDir: File
 
@@ -17,8 +20,8 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
         return File(dstDir, "icon.png")
     }
 
-    override fun copyIcon(pkgName: String) {
-        val applicationInfo = app.packageManager.getApplicationInfo(pkgName, 0)
+    override fun copyIcon(app: Application, pkgName: String) {
+        val applicationInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
 
         val iconFile = getIconFile()
 
@@ -96,10 +99,10 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
         ShellUtils.execCmd(cmdList, true, false)
     }
 
-    override fun getApkFileList(pkgName: String): List<File> {
+    override fun getApkFileList(app: Application, pkgName: String): List<File> {
         val fileList = mutableListOf<File>()
 
-        val appInfo = pkgManager.getApplicationInfo(pkgName, 0)
+        val appInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
 
         fileList.add(File(appInfo.sourceDir))
 
