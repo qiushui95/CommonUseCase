@@ -8,7 +8,11 @@ import java.io.File
 public interface AppUseCase {
     public fun runShell(shellList: List<String>, isRoot: Boolean): ShellUtils.CommandResult?
 
-    public fun installApksShell(fileList: List<File>): List<String>
+    public fun getInstallShell(
+        pkgName: String,
+        apkList: List<File>,
+        obbList: List<ObbFileInfo>
+    ): List<String>
 
     public fun isSystemApp(pkgName: String): Boolean
 

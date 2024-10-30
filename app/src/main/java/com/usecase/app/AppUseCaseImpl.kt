@@ -21,17 +21,28 @@ public class AppUseCaseImpl(app: Application) : AppUseCase {
         return ShellUtils.execCmd(shellList, isRoot, true)
     }
 
-    override fun installApksShell(fileList: List<File>): List<String> {
+    override fun getInstallShell(
+        pkgName: String,
+        apkList: List<File>,
+        obbList: List<ObbFileInfo>
+    ): List<String> {
         val cmdList = mutableListOf<String>()
 
         cmdList.add("output=\$(pm install-create)")
         cmdList.add("sid=\$(echo \$output | sed -n 's/.*\\[//;s/\\].*//p')")
 
-        for (file in fileList) {
+        for (file in apkList) {
             cmdList.add("pm install-write \$sid ${file.name} ${file.absolutePath}")
         }
 
         cmdList.add("pm install-commit \$sid")
+
+        if (obbList.isNotEmpty()) {
+            cmdList.add("mkdir -p /sdcard/Android/obb/$pkgName")
+            obbList.mapTo(cmdList) {
+                "cp ${it.srcFile.absolutePath} /sdcard/Android/obb/$pkgName/${it.fileName}"
+            }
+        }
 
         return cmdList
     }
