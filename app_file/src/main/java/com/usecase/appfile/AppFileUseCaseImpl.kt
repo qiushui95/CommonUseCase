@@ -127,12 +127,4 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
             else -> true
         }
     }
-
-    override fun chownInternalDir(pkgName: String, uid: String) {
-        val cmdList = mutableListOf<String>()
-
-        cmdList.add("chown -R $uid:$uid /data/data/$pkgName")
-
-        ShellUtils.execCmd(cmdList, true, true)
-    }
 }
