@@ -9,12 +9,12 @@ import java.io.File
 public abstract class AppFileUseCaseImpl(private val app: Application) : AppFileUseCase {
     private val pkgManager by lazy { app.packageManager }
 
-    protected abstract fun getDstDir(): File
+    protected abstract val dstDir: File
 
     protected abstract fun isAppInstalled(pkgName: String): Boolean
 
     override fun getIconFile(): File {
-        return File(getDstDir(), "icon.png")
+        return File(dstDir, "icon.png")
     }
 
     override fun copyIcon(pkgName: String) {
@@ -37,7 +37,7 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
     }
 
     override fun getExternalDataFile(): File {
-        return File(getDstDir(), "external_data.tar.external")
+        return File(dstDir, "external_data.tar.external")
     }
 
     override fun tarExternalData(pkgName: String) {
@@ -53,7 +53,7 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
     }
 
     override fun getInternalDataFile(): File {
-        return File(getDstDir(), "internal_data.tar.internal")
+        return File(dstDir, "internal_data.tar.internal")
     }
 
     override fun tarInternalData(pkgName: String) {
@@ -69,7 +69,7 @@ public abstract class AppFileUseCaseImpl(private val app: Application) : AppFile
     }
 
     override fun getCustomDirFile(): File {
-        return File(getDstDir(), "custom_dir.tar.custom")
+        return File(dstDir, "custom_dir.tar.custom")
     }
 
     override fun tarCustomDir(dirList: List<String>) {
