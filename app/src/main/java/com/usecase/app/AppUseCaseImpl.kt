@@ -68,14 +68,14 @@ public class AppUseCaseImpl : AppUseCase {
 
         val application = Utils.getApp()
 
+        val pkgName = application.packageName
+
         application.packageManager.getInstalledPackages(0)
             .filterNot { lp -> isSystemApp(lp) }
-            .filterNot { lp -> lp.packageName == application.packageName }
+            .filterNot { lp -> lp.packageName == pkgName }
             .mapTo(cmdList) { lp -> "am force-stop ${lp.packageName}" }
 
-        cmdList.add(
-            "ps -ef | grep 'u0.*' | grep -v ${application.packageName} | awk '{print \$2}' | xargs kill",
-        )
+        cmdList.add("ps -ef | grep 'u0.*' | grep -v $pkgName | awk '{print \$2}' | xargs kill")
 
         runShell(cmdList, true)
     }
