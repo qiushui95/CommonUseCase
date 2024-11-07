@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -58,7 +59,7 @@ public abstract class BaseSingleWorkService : BaseService() {
                 delay(5000)
                 waitDBIdle()
 
-                if (startReport().not()) {
+                if (tryStartReport().not()) {
                     logMessage("暂无任务需要上报,退出监听")
                     break
                 }
@@ -66,8 +67,24 @@ public abstract class BaseSingleWorkService : BaseService() {
         }
     }
 
+    private val reportDispatcher = Dispatchers.IO.limitedParallelism(1)
+
+    protected suspend fun tryStartReport(): Boolean {
+        val deferred = lifecycleScope.async(reportDispatcher) {
+            startReport()
+        }
+
+        return try {
+            deferred.await()
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            true
+        }
+    }
+
+
     /**
-     * 开始上报
+     * 开始状态上报
      * @return 是否继续下一轮上报
      */
     protected abstract suspend fun startReport(): Boolean
