@@ -17,6 +17,9 @@ public abstract class BaseSingleWorkService : BaseService() {
     private val intervalReportJob = SupervisorJob()
     private val intervalWorkJob = SupervisorJob()
 
+    protected open val logWorkEnd: Boolean = true
+    protected open val logReportEnd: Boolean = true
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
 
@@ -60,7 +63,7 @@ public abstract class BaseSingleWorkService : BaseService() {
                 waitDBIdle()
 
                 if (tryStartReport().not()) {
-                    logMessage("暂无任务需要上报,退出监听")
+                    if (logReportEnd) logMessage("暂无任务需要上报,退出监听")
                     break
                 }
             }
@@ -82,7 +85,6 @@ public abstract class BaseSingleWorkService : BaseService() {
         }
     }
 
-
     /**
      * 开始状态上报
      * @return 是否继续下一轮上报
@@ -97,7 +99,7 @@ public abstract class BaseSingleWorkService : BaseService() {
                 waitDBIdle()
 
                 if (startWork().not()) {
-                    logMessage("暂无任务,退出监听")
+                    if (logWorkEnd) logMessage("暂无任务,退出监听")
                     break
                 }
             }
