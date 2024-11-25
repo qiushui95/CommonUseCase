@@ -61,7 +61,7 @@ public class AppUseCaseImpl : AppUseCase {
     }
 
     override fun isSystemApp(pkgInfo: PackageInfo): Boolean {
-        return (ApplicationInfo.FLAG_SYSTEM and pkgInfo.applicationInfo.flags) == 1
+        return (ApplicationInfo.FLAG_SYSTEM and (pkgInfo.applicationInfo?.flags ?: -1)) == 1
     }
 
     override fun killAllUserApp() {
