@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Environment
 import android.os.storage.StorageManager
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ShellUtils
 import com.blankj.utilcode.util.Utils
@@ -88,6 +89,14 @@ public class AppUseCaseImpl : AppUseCase {
         cmdList.add("ps -ef | grep $pkgName | awk '{print \$2}' | xargs kill")
 
         runShell(cmdList, true)
+    }
+
+    override fun launchApp(pkgName: String) {
+        val pkgManager = getPkgManager(Utils.getApp())
+
+        val intent = pkgManager.getLaunchIntentForPackage(pkgName) ?: return
+
+        ActivityUtils.startActivity(intent)
     }
 
     override fun isAppInstalled(pkgName: String): Boolean {

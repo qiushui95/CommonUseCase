@@ -23,6 +23,8 @@ public interface AppUseCase {
 
     public fun killApp(pkgName: String)
 
+    public fun launchApp(pkgName: String)
+
     public fun isAppInstalled(pkgName: String): Boolean
 
     public fun getAppInfo(pkgName: String): AppUtils.AppInfo?
