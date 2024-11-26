@@ -42,8 +42,6 @@ public abstract class BaseSingleWorkService : BaseService() {
 
     protected abstract fun onReceiveCommand(intent: Intent?)
 
-    protected abstract fun logMessage(message: String)
-
     protected fun startDBWork(
         block: suspend () -> Unit,
     ): Job = lifecycleScope.launch(dbWorkDispatcher + dbWorkJob) {

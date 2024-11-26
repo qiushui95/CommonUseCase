@@ -34,4 +34,6 @@ public abstract class BaseService : LifecycleService() {
 
         return null
     }
+
+    protected abstract fun logMessage(message: String)
 }
