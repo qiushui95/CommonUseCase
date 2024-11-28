@@ -155,7 +155,14 @@ public class AppUseCaseImpl : AppUseCase {
         return "u0_a${uid - 10000}"
     }
 
-    override fun getIconFile(app: Application, pkgName: String): File? {
+    override fun getIconFile(app: Application, pkgName: String): File? = try {
+        tryGetIconFile(app, pkgName)
+    } catch (ex: Exception) {
+        ex.printStackTrace()
+        null
+    }
+
+    private fun tryGetIconFile(app: Application, pkgName: String): File? {
         val dir = File(PathUtils.getExternalAppCachePath(), "app_icon_cache")
 
         val dstFile = File(dir, "$pkgName.png")
