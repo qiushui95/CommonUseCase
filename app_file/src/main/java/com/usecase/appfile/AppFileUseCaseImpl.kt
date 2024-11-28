@@ -2,8 +2,6 @@ package com.usecase.appfile
 
 import android.app.Application
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import androidx.core.graphics.drawable.toBitmapOrNull
 import com.blankj.utilcode.util.ShellUtils
 import java.io.File
 
@@ -15,27 +13,6 @@ public abstract class AppFileUseCaseImpl : AppFileUseCase {
     protected abstract val dstDir: File
 
     protected abstract fun isAppInstalled(pkgName: String): Boolean
-
-    override fun getIconFile(): File {
-        return File(dstDir, "icon.png")
-    }
-
-    override fun copyIcon(app: Application, pkgName: String, dstFile: File) {
-        val applicationInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
-
-        val bitmap = applicationInfo.loadUnbadgedIcon(app.packageManager)
-            ?.toBitmapOrNull() ?: return
-
-        try {
-            dstFile.parentFile?.mkdirs()
-
-            dstFile.delete()
-            dstFile.createNewFile()
-            dstFile.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-        } finally {
-            bitmap.recycle()
-        }
-    }
 
     override fun getExternalDataFile(): File {
         return File(dstDir, "external_data.tar.external")

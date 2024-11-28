@@ -4,10 +4,6 @@ import android.app.Application
 import java.io.File
 
 public interface AppFileUseCase {
-    public fun getIconFile(): File
-
-    public fun copyIcon(app: Application, pkgName: String, dstFile: File = getIconFile())
-
     public fun getExternalDataFile(): File
 
     public fun tarExternalData(pkgName: String, dstFile: File = getExternalDataFile())

@@ -5,10 +5,13 @@ import android.app.usage.StorageStatsManager
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Environment
 import android.os.storage.StorageManager
+import androidx.core.graphics.drawable.toBitmapOrNull
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.PathUtils
 import com.blankj.utilcode.util.ShellUtils
 import com.blankj.utilcode.util.Utils
 import java.io.File
@@ -150,5 +153,32 @@ public class AppUseCaseImpl : AppUseCase {
         if (uid == 1000) return "system"
 
         return "u0_a${uid - 10000}"
+    }
+
+    override fun getIconFile(app: Application, pkgName: String): File? {
+        val dir = File(PathUtils.getExternalAppCachePath(), "app_icon_cache")
+
+        val dstFile = File(dir, "$pkgName.png")
+
+        if (dstFile.exists()) {
+            val updateTime = getPkgManager(app).getPackageInfo(pkgName, 0).lastUpdateTime
+
+            if (dstFile.lastModified() >= updateTime) return dstFile
+
+            dstFile.delete()
+        }
+
+        val applicationInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
+
+        val bitmap = applicationInfo.loadUnbadgedIcon(app.packageManager)
+            ?.toBitmapOrNull() ?: return null
+
+        dir.mkdirs()
+
+        dstFile.createNewFile()
+
+        dstFile.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+
+        return dstFile
     }
 }

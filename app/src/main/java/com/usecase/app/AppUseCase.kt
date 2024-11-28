@@ -36,4 +36,6 @@ public interface AppUseCase {
     public fun getAppSignature(appInfo: AppUtils.AppInfo?): String?
 
     public fun getUID(pkgName: String): String?
+
+    public fun getIconFile(app: Application, pkgName: String): File?
 }
