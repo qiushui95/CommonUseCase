@@ -38,4 +38,10 @@ public interface AppUseCase {
     public fun getUID(pkgName: String): String?
 
     public fun getIconFile(app: Application, pkgName: String): File?
+
+    public fun getApkFileList(app: Application, pkgName: String): List<File>
+
+    public fun getObbFileList(pkgName: String): List<File>
+
+    public fun chownInternalDir(pkgName: String, uid: String? = getUID(pkgName))
 }

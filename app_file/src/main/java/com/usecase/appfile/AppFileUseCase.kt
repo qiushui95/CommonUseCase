@@ -1,6 +1,5 @@
 package com.usecase.appfile
 
-import android.app.Application
 import java.io.File
 
 public interface AppFileUseCase {
@@ -15,10 +14,6 @@ public interface AppFileUseCase {
     public fun getCustomDirFile(): File
 
     public fun tarCustomDir(dirList: List<String>, dstFile: File = getCustomDirFile())
-
-    public fun getApkFileList(app: Application, pkgName: String): List<File>
-
-    public fun getObbFileList(pkgName: String): List<File>
 
     public fun checkTarFile(file: File): Boolean
 }

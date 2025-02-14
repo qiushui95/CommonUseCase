@@ -68,30 +68,6 @@ public abstract class AppFileUseCaseImpl : AppFileUseCase {
         ShellUtils.execCmd(cmdList, true, false)
     }
 
-    override fun getApkFileList(app: Application, pkgName: String): List<File> {
-        val fileList = mutableListOf<File>()
-
-        val appInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
-
-        fileList.add(File(appInfo.sourceDir))
-
-        appInfo.splitSourceDirs?.forEach { fileList.add(File(it)) }
-
-        fileList.removeAll { it.exists().not() && it.isFile.not() }
-
-        return fileList
-    }
-
-    public override fun getObbFileList(pkgName: String): List<File> {
-        val obbDir = File("/sdcard/Android/obb", pkgName)
-
-        if (obbDir.exists().not()) return emptyList()
-
-        if (obbDir.isDirectory.not()) return emptyList()
-
-        return obbDir.listFiles()?.filter { it.exists() && it.isFile } ?: emptyList()
-    }
-
     override fun checkTarFile(file: File): Boolean {
         return when {
             file.exists().not() -> false

@@ -188,4 +188,38 @@ public class AppUseCaseImpl : AppUseCase {
 
         return dstFile
     }
+
+    override fun getApkFileList(app: Application, pkgName: String): List<File> {
+        val fileList = mutableListOf<File>()
+
+        val appInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
+
+        fileList.add(File(appInfo.sourceDir))
+
+        appInfo.splitSourceDirs?.forEach { fileList.add(File(it)) }
+
+        fileList.removeAll { it.exists().not() && it.isFile.not() }
+
+        return fileList
+    }
+
+    override fun getObbFileList(pkgName: String): List<File> {
+        val obbDir = File("/sdcard/Android/obb", pkgName)
+
+        if (obbDir.exists().not()) return emptyList()
+
+        if (obbDir.isDirectory.not()) return emptyList()
+
+        return obbDir.listFiles()?.filter { it.exists() && it.isFile } ?: emptyList()
+    }
+
+    override fun chownInternalDir(pkgName: String, uid: String?) {
+        uid ?: return
+
+        val cmdList = mutableListOf<String>()
+
+        cmdList.add("chown -R $uid:$uid /data/data/$pkgName")
+
+        ShellUtils.execCmd(cmdList, true, true)
+    }
 }
