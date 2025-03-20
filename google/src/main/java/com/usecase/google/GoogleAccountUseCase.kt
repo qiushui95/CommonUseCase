@@ -6,7 +6,6 @@ import android.accounts.AccountManagerFuture
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -35,7 +34,7 @@ public class GoogleAccountUseCase(private val context: Context) {
         return accountManager.getAccountsByType(GOOGLE_ACCOUNT_TYPE).toList()
     }
 
-    public suspend fun removeAccount(account: Account) = suspendCoroutine { continuation ->
+    public suspend fun removeAccount(account: Account): Unit = suspendCoroutine { continuation ->
         accountManager.removeAccount(account, null, { futureRemoveAccount(it, continuation) }, null)
     }
 
