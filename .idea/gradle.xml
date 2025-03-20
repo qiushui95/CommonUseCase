@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/dloader" />
             <option value="$PROJECT_DIR$/file" />
+            <option value="$PROJECT_DIR$/google" />
             <option value="$PROJECT_DIR$/launcher" />
             <option value="$PROJECT_DIR$/network" />
             <option value="$PROJECT_DIR$/oss_upload" />
@@ -35,7 +36,6 @@
             <option value="$PROJECT_DIR$/service" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
