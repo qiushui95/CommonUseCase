@@ -35,9 +35,7 @@ public class GoogleAccountUseCase(private val context: Context) {
         return accountManager.getAccountsByType(GOOGLE_ACCOUNT_TYPE).toList()
     }
 
-    private suspend fun removeAccount(account: Account) = suspendCoroutine { continuation ->
-        Log.d("GoogleAccountUseCase", "removeAccount: ${account.name}")
-
+    public suspend fun removeAccount(account: Account) = suspendCoroutine { continuation ->
         accountManager.removeAccount(account, null, { futureRemoveAccount(it, continuation) }, null)
     }
 
