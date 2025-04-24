@@ -11,7 +11,6 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 public class GoogleAccountUseCase(private val context: Context) {
-
     private companion object {
         private const val GOOGLE_ACCOUNT_TYPE = "com.google"
         private const val GOOGLE_AUTH_TOKEN_TYPE = "androidmarket"
@@ -20,7 +19,6 @@ public class GoogleAccountUseCase(private val context: Context) {
     private val accountManager by lazy { AccountManager.get(context) }
 
     private fun futureStartActivity(future: AccountManagerFuture<Bundle>) {
-
         @Suppress("DEPRECATION")
         val intent = future.result.getParcelable<Intent>("intent") ?: return
 
@@ -40,7 +38,7 @@ public class GoogleAccountUseCase(private val context: Context) {
 
     private fun futureRemoveAccount(
         future: AccountManagerFuture<Bundle>,
-        continuation: Continuation<Unit>
+        continuation: Continuation<Unit>,
     ) {
         futureStartActivity(future)
         continuation.resume(Unit)
@@ -60,8 +58,7 @@ public class GoogleAccountUseCase(private val context: Context) {
             null,
             null,
             ::futureStartActivity,
-            null
+            null,
         )
     }
-
 }

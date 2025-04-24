@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.ShellUtils
 import org.json.JSONObject
 
 public object CloudPhoneUtils {
-
     private fun getSystemJsonObject(): JSONObject? {
         val json = ShellUtils.execCmd("dg dump system", false, true).successMsg
 
@@ -54,7 +53,6 @@ public object CloudPhoneUtils {
     }
 
     public fun allowVPNByPass(pkgName: String) {
-
         val pkgNameSet = runCatching { getCurByPassSet() }
             .onFailure { it.printStackTrace() }
             .getOrNull() ?: return

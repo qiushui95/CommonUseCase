@@ -14,7 +14,7 @@ internal fun Project.configSpotless() {
             target("**/*.kt")
             targetExclude("**/build/**/*.kt")
             endWithNewline()
-            indentWithSpaces()
+            leadingTabsToSpaces()
             trimTrailingWhitespace()
             ktlint(libs.findVersion("ktlint").get().requiredVersion)
         }

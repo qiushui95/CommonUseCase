@@ -1,6 +1,6 @@
 [versions]
 #http://Nothing
-agp = "8.7.2"
+agp = "8.9.2"
 
 
 #https://github.com/mannodermaus/android-junit5
@@ -17,45 +17,45 @@ androidtest-uiautomator = "2.3.0"
 androidutils = "1.31.1"
 
 #https://developer.android.com/jetpack/androidx/releases/core
-corektx = "1.15.0"
+corektx = "1.16.0"
 
 #https://developer.android.com/jetpack/androidx/releases/core
 coresplash = "1.0.1"
 
 #https://github.com/Kotlin/kotlinx.coroutines
-coroutines = "1.9.0"
+coroutines = "1.10.2"
 
 #https://github.com/huaweicloud/huaweicloud-sdk-java-obs
-drive-obs = "3.24.9"
+drive-obs = "3.24.12"
 
 #https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/changelog.txt
-drive-oss = "2.9.20"
+drive-oss = "2.9.21"
 
 #https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-junit5 = "5.11.3"
+junit5 = "5.12.2"
 
 
 #https://github.com/JetBrains/kotlin
-kotlin = "2.0.21"
+kotlin = "2.1.20"
 
 #https://github.com/google/ksp
-ksp = "2.0.21-1.0.28"
+ksp = "2.1.20-2.0.0"
 
 #https://github.com/pinterest/ktlint
-ktlint = "1.4.1"
+ktlint = "1.5.0"
 
 
 #https://developer.android.com/jetpack/androidx/releases/lifecycle
 lifecycle = "2.8.7"
 
 #https://github.com/vanniktech/gradle-maven-publish-plugin
-maven = "0.30.0"
+maven = "0.31.0"
 
 #https://github.com/square/okhttp
 okhttp = "4.12.0"
 
 #https://github.com/diffplug/spotless
-spotless = "6.25.0"
+spotless = "7.0.3"
 
 
 
