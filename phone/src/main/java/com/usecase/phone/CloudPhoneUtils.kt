@@ -1,6 +1,7 @@
 package com.usecase.phone
 
 import com.blankj.utilcode.util.ShellUtils
+import org.json.JSONArray
 import org.json.JSONObject
 
 public object CloudPhoneUtils {
@@ -20,22 +21,39 @@ public object CloudPhoneUtils {
         return getSystemJsonObject()?.getString("deviceVmCode")
     }
 
-    public fun allowRoot(pkgName: String) {
-        val allowArray = runCatching { getSystemJsonObject()?.getJSONArray("suAllowApps") }
+    private fun getJsonArray(jsonObject: JSONObject, key: String): JSONArray? {
+        return runCatching { jsonObject.getJSONArray(key) }
             .onFailure { it.printStackTrace() }
-            .getOrNull() ?: return
+            .getOrNull()
+    }
+
+    public fun allowRoot(pkgName: String, cmdLogger: ((List<String>) -> Unit)?) {
+        val jsonObject = runCatching { getSystemJsonObject() }.getOrNull() ?: return
+
+        val allowArray = getJsonArray(jsonObject, "suAllowApps") ?: return
+        val denyArray = getJsonArray(jsonObject, "suDenyApps") ?: return
 
         val allowSet = mutableSetOf<String>()
+        val denySet = mutableSetOf<String>()
 
         repeat(allowArray.length()) { allowSet.add(allowArray.getString(it)) }
+        repeat(denyArray.length()) { denySet.add(denyArray.getString(it)) }
 
         allowSet.add(pkgName)
+        denySet.remove(pkgName)
 
         val cmdList = mutableListOf<String>()
 
         cmdList.add("dg am stop $pkgName")
-        cmdList.add("dg config -a system.suAllowApps=${allowSet.joinToString(",")}")
+
+        val allowStr = allowSet.joinToString(",")
+        val denyStr = denySet.joinToString(",")
+
+        cmdList.add("dg config -a system.suAllowApps=$allowStr -a system.suDenyApps=$denyStr")
+
         cmdList.add("dg am stop $pkgName")
+
+        cmdLogger?.invoke(cmdList)
 
         ShellUtils.execCmd(cmdList, false, true)
     }
