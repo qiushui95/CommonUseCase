@@ -17,18 +17,18 @@ internal class NetDGUseCase : BaseDGUseCase() {
         return set
     }
 
-    fun allowVPNByPass(pkgName: String) {
+    fun allowVPNByPass(pkgNameSet: Set<String>) {
         val result = runCatching { getCurByPassSet() }
 
         if (result.isSuccess.not()) return
 
-        val pkgNameSet = result.getOrNull() ?: return
+        val curSet = result.getOrNull() ?: return
 
-        if (pkgNameSet.contains(pkgName)) return
+        if (curSet.containsAll(pkgNameSet)) return
 
-        pkgNameSet.add(pkgName)
+        curSet.addAll(pkgNameSet)
 
-        val cmdValue = pkgNameSet.joinToString(",")
+        val cmdValue = curSet.joinToString(",")
 
         ShellUtils.execCmd("dg config -a net.vpn.bypassPkgs=$cmdValue", false, true)
     }

@@ -18,18 +18,34 @@ public object CloudPhoneUtils {
     }
 
     public fun allowRoot(pkgName: String) {
-        return systemDGUseCase.allowRoot(pkgName)
+        return systemDGUseCase.allowRoot(setOf(pkgName))
+    }
+
+    public fun allowRoot(pkgNameSet: Set<String>) {
+        return systemDGUseCase.allowRoot(pkgNameSet)
     }
 
     public fun allowVPNByPass(pkgName: String) {
-        return netDGUseCase.allowVPNByPass(pkgName)
+        return netDGUseCase.allowVPNByPass(setOf(pkgName))
+    }
+
+    public fun allowVPNByPass(pkgNameSet: Set<String>) {
+        return netDGUseCase.allowVPNByPass(pkgNameSet)
     }
 
     public fun allowKeepAlive(pkgName: String) {
-        return amDGUseCase.allowKeepAlive(pkgName)
+        return amDGUseCase.allowKeepAlive(setOf(pkgName))
+    }
+
+    public fun allowKeepAlive(pkgNameSet: Set<String>) {
+        return amDGUseCase.allowKeepAlive(pkgNameSet)
     }
 
     public fun denyKeepAlive(pkgName: String) {
-        return amDGUseCase.denyKeepAlive(pkgName)
+        return amDGUseCase.denyKeepAlive(setOf(pkgName))
+    }
+
+    public fun denyKeepAlive(pkgNameSet: Set<String>) {
+        return amDGUseCase.denyKeepAlive(pkgNameSet)
     }
 }

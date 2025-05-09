@@ -17,37 +17,37 @@ internal class AmDGUseCase : BaseDGUseCase() {
         return set
     }
 
-    private fun updateKeepAlive(pkgNameSet: MutableSet<String>) {
+    private fun updateKeepAlive(pkgNameSet: Set<String>) {
         val cmdValue = pkgNameSet.joinToString(",")
 
         ShellUtils.execCmd("dg config -a am.persistentPkgs=$cmdValue", false, true)
     }
 
-    fun allowKeepAlive(pkgName: String) {
+    fun allowKeepAlive(pkgNameSet: Set<String>) {
         val result = runCatching { getCurKeepAliveSet() }
 
         if (result.isSuccess.not()) return
 
-        val pkgNameSet = result.getOrNull() ?: return
+        val curSet = result.getOrNull() ?: return
 
-        if (pkgNameSet.contains(pkgName)) return
+        if (curSet.containsAll(pkgNameSet)) return
 
-        pkgNameSet.add(pkgName)
+        curSet.addAll(pkgNameSet)
 
-        updateKeepAlive(pkgNameSet)
+        updateKeepAlive(curSet)
     }
 
-    fun denyKeepAlive(pkgName: String) {
+    fun denyKeepAlive(pkgNameSet: Set<String>) {
         val result = runCatching { getCurKeepAliveSet() }
 
         if (result.isSuccess.not()) return
 
-        val pkgNameSet = result.getOrNull() ?: return
+        val curSet = result.getOrNull() ?: return
 
-        if (pkgNameSet.contains(pkgName).not()) return
+        if (curSet.containsAll(pkgNameSet)) return
 
-        pkgNameSet.remove(pkgName)
+        curSet.removeAll(pkgNameSet)
 
-        updateKeepAlive(pkgNameSet)
+        updateKeepAlive(curSet)
     }
 }
