@@ -12,9 +12,11 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import okhttp3.OkHttpClient
 import java.io.File
+import java.io.FileOutputStream
 
 private const val SPLIT_SIZE = 10L * 1024 * 1024
-private const val SPLIT_TIMEOUT_SECOND = 15
+private const val SPLIT_TIMEOUT_SECOND = 5
+private const val SPLIT_TIMEOUT_SECOND_DELTA = 10
 
 public class DloadUseCaseImpl : DloadUseCase {
     private data class DownInfo(
@@ -69,6 +71,20 @@ public class DloadUseCaseImpl : DloadUseCase {
         }
     }
 
+    private data class SubTaskInfo(
+        val index: Int,
+        val startIndex: Long,
+        val endIndex: Long,
+        val splitFile: File,
+    ) {
+        val totalSize: Long = endIndex - startIndex + 1
+
+        val httpStartIndex: Long = startIndex + splitFile.length()
+
+        val isSuccess: Boolean
+            get() = splitFile.exists() && splitFile.length() == totalSize
+    }
+
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
             .build()
@@ -120,10 +136,10 @@ public class DloadUseCaseImpl : DloadUseCase {
         scope: CoroutineScope,
         downInfo: DownInfo,
     ): Boolean {
-        val maxTime = downInfo.retryTime + 1
+        val maxTimes = downInfo.retryTime + 1
 
-        repeat(maxTime) {
-            if (syncDload(scope, downInfo, it, maxTime)) {
+        repeat(maxTimes) {
+            if (syncDload(scope, downInfo, it, maxTimes)) {
                 return true
             }
         }
@@ -134,15 +150,15 @@ public class DloadUseCaseImpl : DloadUseCase {
     private suspend fun syncDload(
         scope: CoroutineScope,
         downInfo: DownInfo,
-        curTime: Int,
-        maxTime: Int,
+        curTimes: Int,
+        maxTimes: Int,
     ): Boolean {
-        if (curTime > 0) {
-            logMessage("下载失败,正在重试$curTime/$maxTime")
+        if (curTimes > 0) {
+            logMessage("下载失败,正在重试$curTimes/$maxTimes")
         }
 
         try {
-            return startSyncDload(scope = scope, downInfo = downInfo) && downInfo.dstFile.exists()
+            return startSyncDload(scope, downInfo, curTimes) && downInfo.dstFile.exists()
         } catch (e: Exception) {
             e.printStackTrace()
             deleteFile(downInfo.dstFile)
@@ -169,16 +185,6 @@ public class DloadUseCaseImpl : DloadUseCase {
         result.mkdirs()
 
         return result
-    }
-
-    private fun getSubTaskFile(
-        dstFile: File,
-        index: Int,
-        dir: File = getSubTaskDir(dstFile),
-    ): File {
-        val name = dstFile.name + ".$index"
-
-        return File(dir, name)
     }
 
     private fun getHeaderInfo(response: okhttp3.Response): HeaderInfo? {
@@ -222,7 +228,40 @@ public class DloadUseCaseImpl : DloadUseCase {
         return getGetHeaderInfo(url)
     }
 
-    private suspend fun startSyncDload(scope: CoroutineScope, downInfo: DownInfo): Boolean {
+    private fun getTimeoutSecond(canSplit: Boolean, curTimes: Int): Int {
+        if (canSplit.not()) return Int.MAX_VALUE
+
+        return SPLIT_TIMEOUT_SECOND + curTimes * SPLIT_TIMEOUT_SECOND_DELTA
+    }
+
+    private fun getSubTaskInfo(
+        index: Int,
+        splitSize: Long,
+        totalSize: Long,
+        dstFile: File,
+        subFileDir: File,
+    ): SubTaskInfo? {
+        val startIndex = splitSize * index
+
+        if (startIndex >= totalSize) return null
+
+        val endIndex = (startIndex + splitSize - 1).coerceAtMost(totalSize - 1)
+
+        val splitFile = File(subFileDir, dstFile.name + ".$index")
+
+        return SubTaskInfo(
+            index = index,
+            startIndex = startIndex,
+            endIndex = endIndex,
+            splitFile = splitFile,
+        )
+    }
+
+    private suspend fun startSyncDload(
+        scope: CoroutineScope,
+        downInfo: DownInfo,
+        curTimes: Int,
+    ): Boolean {
         val headerInfo = getHeaderInfo(downInfo.url) ?: return false
 
         val dstFile = downInfo.dstFile
@@ -244,17 +283,27 @@ public class DloadUseCaseImpl : DloadUseCase {
 
         val subFileDir = getSubTaskDir(dstFile)
 
-        val subFileList = (0..<subTaskNum).map { getSubTaskFile(dstFile, it, subFileDir) }
+        val subTaskList = (0..<subTaskNum).mapNotNull {
+            getSubTaskInfo(
+                index = it,
+                splitSize = splitSize,
+                totalSize = useCase.totalSize,
+                dstFile = dstFile,
+                subFileDir = subFileDir,
+            )
+        }
 
-        val timeoutSecond = if (canSplit) SPLIT_TIMEOUT_SECOND else Int.MAX_VALUE
+        for (taskInfo in subTaskList) {
+            useCase.plusSize(taskInfo.splitFile.length())
+        }
 
-        val jobList = subFileList.mapIndexed { index, file ->
+        val timeoutSecond = getTimeoutSecond(canSplit, curTimes)
+
+        val jobList = subTaskList.map {
             startSubTask(
                 progressUseCase = useCase,
-                eachSize = splitSize,
-                dstFile = file,
-                index = index,
                 timeoutSecond = timeoutSecond,
+                subTaskInfo = it,
             )
         }
 
@@ -264,7 +313,7 @@ public class DloadUseCaseImpl : DloadUseCase {
 
         useCase.endNotify()
 
-        mergeFile(subFileList, dstFile, useCase.totalSize)
+        mergeFile(subTaskList, dstFile)
 
         val isSuccess = when {
             dstFile.exists().not() -> false
@@ -284,52 +333,41 @@ public class DloadUseCaseImpl : DloadUseCase {
 
     private fun startSubTask(
         progressUseCase: ProgressUseCase,
-        eachSize: Long,
-        dstFile: File,
-        index: Int,
         timeoutSecond: Int,
+        subTaskInfo: SubTaskInfo,
     ) = progressUseCase.scope.launch(subTaskDispatcher + SupervisorJob()) {
-        val startIndex = eachSize * index
+        if (subTaskInfo.isSuccess) return@launch
 
-        if (startIndex >= progressUseCase.totalSize) return@launch
-
-        val endIndex = (startIndex + eachSize - 1).coerceAtMost(progressUseCase.totalSize - 1)
-
-        val totalSize = endIndex - startIndex + 1
-
-        if (dstFile.exists() && dstFile.length() == totalSize) {
-            progressUseCase.plusSize(totalSize)
-        } else {
-            dloadSubFile(progressUseCase, dstFile, startIndex, endIndex, totalSize, timeoutSecond)
-        }
+        dloadSubFile(progressUseCase, timeoutSecond, subTaskInfo)
     }
 
     private suspend fun dloadSubFile(
         progressUseCase: ProgressUseCase,
-        splitFile: File,
-        startIndex: Long,
-        endIndex: Long,
-        totalSize: Long,
         timeoutSecond: Int,
+        subTaskInfo: SubTaskInfo,
     ) = withTimeout(timeoutSecond * 1000L) {
-        dloadSubFile(progressUseCase, splitFile, startIndex, endIndex, totalSize, this)
+        dloadSubFile(
+            progressUseCase = progressUseCase,
+            scope = this,
+            subTaskInfo = subTaskInfo,
+        )
     }
 
     private fun dloadSubFile(
         progressUseCase: ProgressUseCase,
-        splitFile: File,
-        startIndex: Long,
-        endIndex: Long,
-        totalSize: Long,
         scope: CoroutineScope,
+        subTaskInfo: SubTaskInfo,
     ) {
-        deleteFile(splitFile)
-        splitFile.createNewFile()
+        val splitFile = subTaskInfo.splitFile
+
+        if (splitFile.exists().not()) {
+            splitFile.createNewFile()
+        }
 
         val request = okhttp3.Request.Builder()
             .url(progressUseCase.downUrl)
             .get()
-            .header("Range", "bytes=$startIndex-$endIndex")
+            .header("Range", "bytes=${subTaskInfo.httpStartIndex}-${subTaskInfo.endIndex}")
             .build()
 
         val response = okHttpClient.newCall(request).execute()
@@ -338,7 +376,8 @@ public class DloadUseCaseImpl : DloadUseCase {
 
         response.body?.use { body ->
             body.byteStream().use { input ->
-                splitFile.outputStream().use { output ->
+                FileOutputStream(splitFile, true).use { output ->
+
                     val buffer = ByteArray(1024 * 126)
 
                     while (scope.isActive) {
@@ -353,21 +392,17 @@ public class DloadUseCaseImpl : DloadUseCase {
                 }
             }
         }
-
-        if (splitFile.length() != totalSize) splitFile.delete()
     }
 
-    private fun mergeFile(subFileList: List<File>, dstFile: File, totalLength: Long) {
-        val splitLength = subFileList.sumOf { it.length() }
-
-        if (splitLength != totalLength) return
+    private fun mergeFile(subTaskList: List<SubTaskInfo>, dstFile: File) {
+        if (subTaskList.any { it.isSuccess.not() }) return
 
         deleteFile(dstFile)
         dstFile.createNewFile()
 
         dstFile.outputStream().use { output ->
-            for (subFile in subFileList) {
-                subFile.inputStream().use { input ->
+            for (subTaskInfo in subTaskList) {
+                subTaskInfo.splitFile.inputStream().use { input ->
                     input.copyTo(output)
                 }
             }

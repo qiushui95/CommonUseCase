@@ -23,7 +23,7 @@ public interface DloadUseCase {
     public suspend fun startSyncDload(
         url: String,
         dstFile: File,
-        retryTime: Int = 2,
+        retryTime: Int = 5,
         progressListener: OnProgressListener? = null,
     ): Boolean
 
