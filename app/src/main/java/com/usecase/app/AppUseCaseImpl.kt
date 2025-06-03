@@ -9,14 +9,13 @@ import android.graphics.Bitmap
 import android.os.Environment
 import android.os.storage.StorageManager
 import androidx.core.graphics.drawable.toBitmapOrNull
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.PathUtils
 import com.blankj.utilcode.util.ShellUtils
 import com.blankj.utilcode.util.Utils
 import java.io.File
 
-public class AppUseCaseImpl : AppUseCase {
+public class AppUseCaseImpl(private val shellRunUseCase: AppShellRunUseCase) : AppUseCase {
     private fun getPkgManager(app: Application): PackageManager {
         return app.packageManager
     }
@@ -27,10 +26,6 @@ public class AppUseCaseImpl : AppUseCase {
 
     private fun getStorageManager(app: Application): StorageManager {
         return app.getSystemService(StorageManager::class.java)
-    }
-
-    override fun runShell(shellList: List<String>, isRoot: Boolean): ShellUtils.CommandResult? {
-        return ShellUtils.execCmd(shellList, isRoot, true)
     }
 
     override fun getInstallShell(
@@ -74,32 +69,34 @@ public class AppUseCaseImpl : AppUseCase {
 
         val pkgName = application.packageName
 
-        application.packageManager.getInstalledPackages(0)
+        val pkgList = application.packageManager.getInstalledPackages(0)
             .filterNot { lp -> isSystemApp(lp) }
             .filterNot { lp -> lp.packageName == pkgName }
-            .mapTo(cmdList) { lp -> "am force-stop ${lp.packageName}" }
+            .map { it.packageName }
 
-        cmdList.add("ps -ef | grep 'u0.*' | grep -v $pkgName | awk '{print \$2}' | xargs kill")
+        pkgList.mapTo(cmdList) { "dg am stop $it" }
+        pkgList.mapTo(cmdList) { "am force-stop $it" }
 
-        runShell(cmdList, true)
+        cmdList.add("ps -ef | grep 'u0.*' | grep -v $pkgName | awk '{print $2}' | xargs kill")
+
+        shellRunUseCase.runShell(cmdList)
     }
 
     override fun killApp(pkgName: String) {
         val cmdList = mutableListOf<String>()
 
         cmdList.add("am force-stop $pkgName")
+        cmdList.add("dg am stop $pkgName")
 
-        cmdList.add("ps -ef | grep $pkgName | awk '{print \$2}' | xargs kill")
+        cmdList.add("ps -ef | grep $pkgName | awk '{print $2}' | xargs kill")
 
-        runShell(cmdList, true)
+        shellRunUseCase.runShell(cmdList)
     }
 
     override fun launchApp(pkgName: String) {
-        val pkgManager = getPkgManager(Utils.getApp())
+        val cmd = "dg am start $pkgName"
 
-        val intent = pkgManager.getLaunchIntentForPackage(pkgName) ?: return
-
-        ActivityUtils.startActivity(intent)
+        shellRunUseCase.runShell(listOf(cmd))
     }
 
     override fun isAppInstalled(pkgName: String): Boolean {
@@ -125,7 +122,7 @@ public class AppUseCaseImpl : AppUseCase {
         return try {
             return statsManager.queryStatsForUid(uuid, uid)
                 .run { appBytes + dataBytes + cacheBytes }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             0
         }
     }
@@ -204,7 +201,9 @@ public class AppUseCaseImpl : AppUseCase {
     }
 
     override fun getObbFileList(pkgName: String): List<File> {
-        val obbDir = File("/sdcard/Android/obb", pkgName)
+        val sdcardDir = Environment.getExternalStorageDirectory()
+
+        val obbDir = File(sdcardDir, "Android/obb/$pkgName")
 
         if (obbDir.exists().not()) return emptyList()
 

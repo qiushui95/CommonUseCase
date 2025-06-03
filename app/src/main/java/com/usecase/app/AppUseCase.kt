@@ -3,12 +3,9 @@ package com.usecase.app
 import android.app.Application
 import android.content.pm.PackageInfo
 import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.ShellUtils
 import java.io.File
 
 public interface AppUseCase {
-    public fun runShell(shellList: List<String>, isRoot: Boolean): ShellUtils.CommandResult?
-
     public fun getInstallShell(
         pkgName: String,
         apkList: List<File>,

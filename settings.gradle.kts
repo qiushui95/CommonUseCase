@@ -24,7 +24,7 @@ include(":launcher")
 
 
 include(":app")
-include(":app_file")
+//include(":app_file")
 include(":dloader")
 include(":oss_upload")
 include(":file")

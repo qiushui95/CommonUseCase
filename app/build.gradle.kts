@@ -8,6 +8,6 @@ android {
 
 dependencies {
 
-    implementation(libs.core.ktx)
-    implementation(libs.androidUtils)
+    compileOnly(libs.core.ktx)
+    compileOnly(libs.androidUtils)
 }

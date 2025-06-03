@@ -1,14 +1,11 @@
 package com.usecase.appfile
 
-import android.app.Application
-import android.content.pm.PackageManager
 import com.blankj.utilcode.util.ShellUtils
 import java.io.File
 
-public abstract class AppFileUseCaseImpl : AppFileUseCase {
-    private fun getPkgManager(app: Application): PackageManager {
-        return app.packageManager
-    }
+public abstract class AppFileUseCaseImpl(
+    private val shellRunUseCase: AppFileShellRunUseCase
+) : AppFileUseCase {
 
     protected abstract val dstDir: File
 
@@ -25,7 +22,7 @@ public abstract class AppFileUseCaseImpl : AppFileUseCase {
 
         cmdList.add("cd / && tar -cf ${dstFile.absolutePath} /sdcard/Android/data/$pkgName")
 
-        ShellUtils.execCmd(cmdList, true, true)
+        shellRunUseCase.runShell(cmdList)
     }
 
     override fun getInternalDataFile(): File {
