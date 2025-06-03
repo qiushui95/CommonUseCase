@@ -1,6 +1,6 @@
 [versions]
 #http://Nothing
-agp = "8.9.2"
+agp = "8.10.1"
 
 
 #https://github.com/mannodermaus/android-junit5
@@ -34,16 +34,11 @@ drive-oss = "2.9.21"
 #https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
 junit5 = "5.12.2"
 
-
 #https://github.com/JetBrains/kotlin
 kotlin = "2.1.20"
 
-#https://github.com/google/ksp
-ksp = "2.1.20-2.0.1"
-
 #https://github.com/pinterest/ktlint
 ktlint = "1.5.0"
-
 
 #https://developer.android.com/jetpack/androidx/releases/lifecycle
 lifecycle = "2.9.0"
@@ -65,7 +60,6 @@ spotless = "7.0.3"
 android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "android-junit5" }
 application = { id = "com.android.application", version.ref = "agp" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 library = { id = "com.android.library", version.ref = "agp" }
 maven = { id = "com.vanniktech.maven.publish", version.ref = "maven" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
@@ -99,9 +93,6 @@ gradlePlugin-android = { group = "com.android.tools.build", name = "gradle", ver
 
 #https://github.com/JetBrains/kotlin
 gradlePlugin-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-
-#https://github.com/google/ksp
-gradlePlugin-ksp = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 #https://github.com/diffplug/spotless
 gradlePlugin-spotless = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
