@@ -37,11 +37,11 @@ public class AppUseCaseImpl : AppUseCase {
         pkgName: String,
         apkList: List<File>,
         obbList: List<ObbFileInfo>,
-    ): List<String> {
+    ): String {
         val cmdList = mutableListOf<String>()
 
-        cmdList.add("output=\$(pm install-create)")
-        cmdList.add("sid=\$(echo \$output | sed -n 's/.*\\[//;s/\\].*//p')")
+        cmdList.add("output=$(pm install-create)")
+        cmdList.add("sid=$(echo \$output | sed -n 's/.*\\[//;s/\\].*//p')")
 
         for (file in apkList) {
             cmdList.add("pm install-write \$sid ${file.name} ${file.absolutePath}")
@@ -56,7 +56,7 @@ public class AppUseCaseImpl : AppUseCase {
             }
         }
 
-        return cmdList
+        return cmdList.joinToString(" && ")
     }
 
     override fun isSystemApp(app: Application, pkgName: String): Boolean {

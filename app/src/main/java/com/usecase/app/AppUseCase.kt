@@ -13,7 +13,7 @@ public interface AppUseCase {
         pkgName: String,
         apkList: List<File>,
         obbList: List<ObbFileInfo>,
-    ): List<String>
+    ): String
 
     public fun isSystemApp(app: Application, pkgName: String): Boolean
 
