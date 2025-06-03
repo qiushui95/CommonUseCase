@@ -19,9 +19,9 @@ kotlin {
 }
 
 dependencies {
-    compileOnly(libs.gradlePlugin.android)
-    compileOnly(libs.gradlePlugin.kotlin)
-    compileOnly(libs.gradlePlugin.spotless)
+    implementation(libs.gradlePlugin.android)
+    implementation(libs.gradlePlugin.kotlin)
+    implementation(libs.gradlePlugin.spotless)
 }
 
 gradlePlugin {

@@ -8,5 +8,5 @@ android {
 
 dependencies {
 
-    compileOnly(libs.androidUtils)
+    implementation(libs.androidUtils)
 }
