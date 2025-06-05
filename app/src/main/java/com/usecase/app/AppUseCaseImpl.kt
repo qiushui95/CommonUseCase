@@ -1,7 +1,7 @@
 package com.usecase.app
 
-import android.app.Application
 import android.app.usage.StorageStatsManager
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -16,16 +16,16 @@ import com.blankj.utilcode.util.Utils
 import java.io.File
 
 public class AppUseCaseImpl(private val shellRunUseCase: AppShellRunUseCase) : AppUseCase {
-    private fun getPkgManager(app: Application): PackageManager {
-        return app.packageManager
+    private fun getPkgManager(context: Context): PackageManager {
+        return context.packageManager
     }
 
-    private fun getStatsManager(app: Application): StorageStatsManager {
-        return app.getSystemService(StorageStatsManager::class.java)
+    private fun getStatsManager(context: Context): StorageStatsManager {
+        return context.getSystemService(StorageStatsManager::class.java)
     }
 
-    private fun getStorageManager(app: Application): StorageManager {
-        return app.getSystemService(StorageManager::class.java)
+    private fun getStorageManager(context: Context): StorageManager {
+        return context.getSystemService(StorageManager::class.java)
     }
 
     override fun getInstallShell(
@@ -54,8 +54,8 @@ public class AppUseCaseImpl(private val shellRunUseCase: AppShellRunUseCase) : A
         return cmdList.joinToString(" && ")
     }
 
-    override fun isSystemApp(app: Application, pkgName: String): Boolean {
-        return isSystemApp(getPkgManager(app).getPackageInfo(pkgName, 0))
+    override fun isSystemApp(context: Context, pkgName: String): Boolean {
+        return isSystemApp(getPkgManager(context).getPackageInfo(pkgName, 0))
     }
 
     override fun isSystemApp(pkgInfo: PackageInfo): Boolean {
@@ -109,12 +109,12 @@ public class AppUseCaseImpl(private val shellRunUseCase: AppShellRunUseCase) : A
         return AppUtils.getAppInfo(pkgName)
     }
 
-    override fun getSpaceSize(app: Application, pkgName: String): Long {
+    override fun getSpaceSize(context: Context, pkgName: String): Long {
         val dir = File(Environment.getDataDirectory(), pkgName)
 
-        val pkgManager = getPkgManager(app)
-        val statsManager = getStatsManager(app)
-        val storageManager = getStorageManager(app)
+        val pkgManager = getPkgManager(context)
+        val statsManager = getStatsManager(context)
+        val storageManager = getStorageManager(context)
 
         val uid = pkgManager.getApplicationInfo(pkgName, PackageManager.GET_META_DATA).uid
         val uuid = storageManager.getUuidForPath(dir)
@@ -152,29 +152,29 @@ public class AppUseCaseImpl(private val shellRunUseCase: AppShellRunUseCase) : A
         return "u0_a${uid - 10000}"
     }
 
-    override fun getIconFile(app: Application, pkgName: String): File? = try {
-        tryGetIconFile(app, pkgName)
+    override fun getIconFile(context: Context, pkgName: String): File? = try {
+        tryGetIconFile(context, pkgName)
     } catch (ex: Exception) {
         ex.printStackTrace()
         null
     }
 
-    private fun tryGetIconFile(app: Application, pkgName: String): File? {
+    private fun tryGetIconFile(context: Context, pkgName: String): File? {
         val dir = File(PathUtils.getExternalAppCachePath(), "app_icon_cache")
 
         val dstFile = File(dir, "$pkgName.png")
 
         if (dstFile.exists()) {
-            val updateTime = getPkgManager(app).getPackageInfo(pkgName, 0).lastUpdateTime
+            val updateTime = getPkgManager(context).getPackageInfo(pkgName, 0).lastUpdateTime
 
             if (dstFile.lastModified() >= updateTime) return dstFile
 
             dstFile.delete()
         }
 
-        val applicationInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
+        val applicationInfo = getPkgManager(context).getApplicationInfo(pkgName, 0)
 
-        val bitmap = applicationInfo.loadUnbadgedIcon(app.packageManager)
+        val bitmap = applicationInfo.loadUnbadgedIcon(context.packageManager)
             ?.toBitmapOrNull() ?: return null
 
         dir.mkdirs()
@@ -186,10 +186,10 @@ public class AppUseCaseImpl(private val shellRunUseCase: AppShellRunUseCase) : A
         return dstFile
     }
 
-    override fun getApkFileList(app: Application, pkgName: String): List<File> {
+    override fun getApkFileList(context: Context, pkgName: String): List<File> {
         val fileList = mutableListOf<File>()
 
-        val appInfo = getPkgManager(app).getApplicationInfo(pkgName, 0)
+        val appInfo = getPkgManager(context).getApplicationInfo(pkgName, 0)
 
         fileList.add(File(appInfo.sourceDir))
 

@@ -1,6 +1,6 @@
 package com.usecase.app
 
-import android.app.Application
+import android.content.Context
 import android.content.pm.PackageInfo
 import com.blankj.utilcode.util.AppUtils
 import java.io.File
@@ -12,7 +12,7 @@ public interface AppUseCase {
         obbList: List<ObbFileInfo>,
     ): String
 
-    public fun isSystemApp(app: Application, pkgName: String): Boolean
+    public fun isSystemApp(context: Context, pkgName: String): Boolean
 
     public fun isSystemApp(pkgInfo: PackageInfo): Boolean
 
@@ -26,7 +26,7 @@ public interface AppUseCase {
 
     public fun getAppInfo(pkgName: String): AppUtils.AppInfo?
 
-    public fun getSpaceSize(app: Application, pkgName: String): Long
+    public fun getSpaceSize(context: Context, pkgName: String): Long
 
     public fun getAppSignature(pkgName: String): String?
 
@@ -34,9 +34,9 @@ public interface AppUseCase {
 
     public fun getUID(pkgName: String): String?
 
-    public fun getIconFile(app: Application, pkgName: String): File?
+    public fun getIconFile(context: Context, pkgName: String): File?
 
-    public fun getApkFileList(app: Application, pkgName: String): List<File>
+    public fun getApkFileList(context: Context, pkgName: String): List<File>
 
     public fun getObbFileList(pkgName: String): List<File>
 

@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 
-public abstract class OssUploadUseCaseImpl : OssUploadUseCase {
+public abstract class OssUploadUseCaseImpl(private val context: Context) : OssUploadUseCase {
     private companion object {
         const val ENDPOINT = "http://oss-cn-beijing.aliyuncs.com"
     }
@@ -21,8 +21,6 @@ public abstract class OssUploadUseCaseImpl : OssUploadUseCase {
     }
 
     protected abstract fun getAuthServerUrl(): String
-
-    protected abstract fun getContext(): Context
 
     protected abstract suspend fun getBucketName(): String?
 
@@ -36,7 +34,7 @@ public abstract class OssUploadUseCaseImpl : OssUploadUseCase {
         config.connectionTimeout = 5 * 1000
         config.socketTimeout = 5 * 1000
 
-        return OSSClient(getContext(), ENDPOINT, authProvider, config)
+        return OSSClient(context, ENDPOINT, authProvider, config)
     }
 
     private suspend fun tryGetBucketName(): String? {
