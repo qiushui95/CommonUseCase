@@ -77,9 +77,9 @@ public class AppUseCaseImpl(private val shellRunUseCase: AppShellRunUseCase) : A
         pkgList.mapTo(cmdList) { "dg am stop $it" }
         pkgList.mapTo(cmdList) { "am force-stop $it" }
 
-        cmdList.add("ps -ef | grep 'u0.*' | grep -v $pkgName | awk '{print $2}' | xargs kill")
+//        cmdList.add("ps -ef | grep 'u0.*' | grep -v $pkgName | awk '{print $2}' | xargs kill")
 
-        shellRunUseCase.runShell(cmdList)
+        shellRunUseCase.runShell(cmdList.joinToString(";"))
     }
 
     override fun killApp(pkgName: String) {
@@ -90,7 +90,7 @@ public class AppUseCaseImpl(private val shellRunUseCase: AppShellRunUseCase) : A
 
         cmdList.add("ps -ef | grep $pkgName | awk '{print $2}' | xargs kill")
 
-        shellRunUseCase.runShell(cmdList)
+        shellRunUseCase.runShell(cmdList.joinToString(";"))
     }
 
     override fun launchApp(pkgName: String) {

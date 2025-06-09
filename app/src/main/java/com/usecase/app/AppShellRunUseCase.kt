@@ -1,5 +1,7 @@
 package com.usecase.app
 
-public fun interface AppShellRunUseCase {
+public interface AppShellRunUseCase {
+    public fun runShell(cmd: String)
+
     public fun runShell(cmdList: List<String>)
 }
