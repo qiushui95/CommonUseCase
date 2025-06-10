@@ -10,6 +10,7 @@ internal class ShellUseCaseImpl : ShellUseCase {
         if (cmd.contains("pm install")) return true
         if (cmd.contains("pm uninstall")) return true
         if (cmd.contains("cd /")) return true
+        if (cmd.contains("settings put secure")) return true
 
         return false
     }
