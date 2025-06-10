@@ -15,6 +15,13 @@ internal class ShellUseCaseImpl : ShellUseCase {
         return false
     }
 
+    private fun needLogResult(cmd: String): Boolean {
+
+        if (cmd.contains("tar")) return false
+
+        return true
+    }
+
     override fun runCmd(cmd: String, logger: Logger): ShellRunResult {
         return runCmd(listOf(cmd), logger)
     }
@@ -38,10 +45,12 @@ internal class ShellUseCaseImpl : ShellUseCase {
             val sb = StringBuilder()
             sb.append("finish run cmd, result: ${result.result}, ")
 
-            if (result.result == 0) {
-                sb.append("success: ${result.successMsg}")
-            } else {
-                sb.append("errorMsg: ${result.errorMsg}")
+            if (needLogResult(cmd)) {
+                if (result.result == 0) {
+                    sb.append("success: ${result.successMsg}")
+                } else {
+                    sb.append("errorMsg: ${result.errorMsg}")
+                }
             }
 
             logger(sb.toString())
