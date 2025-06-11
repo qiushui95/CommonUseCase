@@ -16,7 +16,6 @@ internal class ShellUseCaseImpl : ShellUseCase {
     }
 
     private fun needLogResult(cmd: String): Boolean {
-
         if (cmd.contains("tar")) return false
 
         return true
