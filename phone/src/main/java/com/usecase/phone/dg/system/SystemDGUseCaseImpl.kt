@@ -7,11 +7,18 @@ internal class SystemDGUseCaseImpl : BaseDGUseCase(), SystemDGUseCase {
     override val moduleName: String = "system"
 
     override fun getIPAddress(): String? {
-        return getModuleJsonObject()?.getString("deviceIp")
+        return getModuleJsonObject()?.getString("deviceIp")?.ifBlank { null }
+    }
+
+    private fun ip2VmCode(ip: String?): String? {
+        ip ?: return null
+
+        return ip.split(".").joinToString("", prefix = "VM") { it.padStart(3, '0') }
     }
 
     override fun getVmCode(): String? {
-        return getModuleJsonObject()?.getString("deviceVmCode")
+        return getModuleJsonObject()?.optString("deviceVmCode")?.ifBlank { null }
+            ?: ip2VmCode(getIPAddress())
     }
 
     private fun handleRoot(pkgNameSet: Set<String>, isAllow: Boolean) {
