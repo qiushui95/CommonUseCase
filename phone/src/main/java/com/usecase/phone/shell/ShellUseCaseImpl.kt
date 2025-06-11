@@ -44,12 +44,12 @@ internal class ShellUseCaseImpl : ShellUseCase {
             val sb = StringBuilder()
             sb.append("finish run cmd, result: ${result.result}, ")
 
-            if (needLogResult(cmd)) {
-                if (result.result == 0) {
+            if (result.result == 0) {
+                if (needLogResult(cmd)) {
                     sb.append("success: ${result.successMsg}")
-                } else {
-                    sb.append("errorMsg: ${result.errorMsg}")
                 }
+            } else {
+                sb.append("errorMsg: ${result.errorMsg}")
             }
 
             logger(sb.toString())
