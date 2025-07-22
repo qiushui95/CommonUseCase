@@ -1,10 +1,10 @@
 [versions]
 #http://Nothing
-agp = "8.10.1"
+agp = "8.11.1"
 
 
 #https://github.com/mannodermaus/android-junit5
-android-junit5 = "1.12.0.0"
+android-junit5 = "1.13.1.0"
 
 #https://developer.android.com/jetpack/androidx/releases/test
 ##https://mvnrepository.com/artifact/androidx.test.uiautomator/uiautomator
@@ -32,25 +32,25 @@ drive-obs = "3.25.4"
 drive-oss = "2.9.21"
 
 #https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-junit5 = "5.12.2"
+junit5 = "5.13.3"
 
 #https://github.com/JetBrains/kotlin
-kotlin = "2.1.20"
+kotlin = "2.2.0"
 
 #https://github.com/pinterest/ktlint
-ktlint = "1.5.0"
+ktlint = "1.7.0"
 
 #https://developer.android.com/jetpack/androidx/releases/lifecycle
-lifecycle = "2.9.0"
+lifecycle = "2.9.2"
 
 #https://github.com/vanniktech/gradle-maven-publish-plugin
-maven = "0.31.0"
+maven = "0.34.0"
 
 #https://github.com/square/okhttp
-okhttp = "4.12.0"
+okhttp = "5.1.0"
 
 #https://github.com/diffplug/spotless
-spotless = "7.0.3"
+spotless = "7.1.0"
 
 
 
