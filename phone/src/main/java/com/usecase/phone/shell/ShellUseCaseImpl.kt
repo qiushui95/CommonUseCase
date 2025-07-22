@@ -1,8 +1,7 @@
 package com.usecase.phone.shell
 
 import com.blankj.utilcode.util.ShellUtils
-
-private typealias Logger = (String) -> Unit
+import com.usecase.phone.Logger
 
 internal class ShellUseCaseImpl : ShellUseCase {
     private fun checkNeedRoot(cmd: String): Boolean {
@@ -21,11 +20,15 @@ internal class ShellUseCaseImpl : ShellUseCase {
         return true
     }
 
-    override fun runCmd(cmd: String, logger: Logger): ShellRunResult {
-        return runCmd(listOf(cmd), logger)
+    override fun runCmd(cmd: String, skipError: Boolean, logger: Logger): ShellRunResult {
+        return runCmd(listOf(cmd), skipError, logger)
     }
 
-    override fun runCmd(cmdList: List<String>, logger: Logger): ShellRunResult {
+    override fun runCmd(cmdList: List<String>, skipError: Boolean, logger: Logger): ShellRunResult {
+        return runCmd(cmdList.map { ShellRunConfig(it, skipError) }, logger)
+    }
+
+    override fun runCmd(cmdList: List<ShellRunConfig>, logger: Logger): ShellRunResult {
         val resultList = mutableListOf<ShellUtils.CommandResult>()
 
         val iterator = cmdList.iterator()
@@ -33,11 +36,11 @@ internal class ShellUseCaseImpl : ShellUseCase {
         var shellRunResult: ShellRunResult? = null
 
         while (iterator.hasNext()) {
-            val cmd = iterator.next()
+            val (cmd, skipError) = iterator.next()
 
             val root = checkNeedRoot(cmd)
 
-            logger("start run cmd($root): $cmd")
+            logger.log("start run cmd root:$root, skipError: $skipError, cmd: $cmd")
 
             val result = ShellUtils.execCmd(cmd, root, true)
 
@@ -52,9 +55,9 @@ internal class ShellUseCaseImpl : ShellUseCase {
                 sb.append("errorMsg: ${result.errorMsg}")
             }
 
-            logger(sb.toString())
+            logger.log(sb.toString())
 
-            if (result.result != 0) {
+            if (result.result != 0 && skipError.not()) {
                 shellRunResult = ShellRunResult.Failure(result)
                 break
             }
@@ -65,7 +68,7 @@ internal class ShellUseCaseImpl : ShellUseCase {
         while (iterator.hasNext()) {
             val cmd = iterator.next()
 
-            logger("skip cmd: $cmd")
+            logger.log("skip cmd: $cmd")
         }
 
         return shellRunResult ?: ShellRunResult.Success(resultList.map { it.successMsg })
